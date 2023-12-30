@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Clothes Essentials 2023</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #fff0f5; /* Lightest lavender color */
+        }
+
+        h1, h2 {
+            text-align: center;
+            font-family: "Arial", sans-serif;
+            color: #333; /* Choose an appropriate text color */
+        }
+
+        h1 {
+            font-size: 36px; /* Adjust font size for h1 */
+            font-weight: bold;
+            line-height: 1.2; /* Adjust line height for h1 */
+            margin-bottom: 20px; /* Add some space below h1 */
+        }
+
+        h2 {
+            margin-top: 30px;
+            font-size: 24px; /* Increase font size for h2 */
+            line-height: 1.4; /* Adjust line height for h2 */
+        }
+
+        .logo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px; /* Adjust as needed */
+        }
+
+            .logo img {
+                width: 100px; /* Set the desired width for your logo */
+                height: auto; /* Maintain the aspect ratio */
+                margin-top: 10px;
+            }
+
+            .logo h3 {
+                font-family: 'Sacramento', cursive;
+                font-weight: 500;
+                text-align: center;
+                font-size: 45px;
+                margin-bottom: 5px; /* Reduce bottom margin for logo */
+            }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            width: 50%;
+            justify-content: space-around;
+            letter-spacing: 2px;
+            font-weight: 600;
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 10px; /* Adjust as needed */
+        }
+
+            .nav-links a {
+                text-decoration: none;
+                color: black;
+            }
+
+                .nav-links a:hover {
+                    color: #f84258;
+                }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            min-height: 10vh;
+            background-color: #ffffff;
+            position: fixed;
+            width: 100%;
+            top: 0;
+        }
+
+        #login {
+            color: #f84258;
+            margin-top: 10px; /* Adjust as needed */
+        }
+
+        .trend-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Center align the content */
+            align-items: center;
+            text-align: center; /* Reset text alignment to left */
+            padding: 30px; /* Add more padding to the container */
+            margin: 20px 50px; /* Add margin to the container */
+        }
+
+        .trend-description {
+            flex: 1;
+            padding: 20px;
+            font-size: 18px;
+            color: #333; /* Set the text color to a contrast color */
+            border-radius: 10px; /* Add rounded corners to the description box */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+            text-align: center; /* Center the text horizontally */
+            /* Add any other desired styles here */
+            opacity: 0.9; /* Set initial opacity to 0.9 */
+            transition: opacity 0.3s ease; /* Smooth fade-in transition */
+        }
+
+            .trend-description:hover {
+                opacity: 1; /* Increase opacity on hover */
+            }
+
+        .image-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 20px; /* Add more top margin to the image container */
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .fixed-height-img {
+            max-height: 100%;
+            object-fit: cover;
+            width: 100%;
+            height: 600px; /* Set your desired height for img2, img3, and img4 */
+        }
+
+        .shop-now-btn {
+            display: inline-block;
+            margin-top: 15px; /* Increase top margin for the shop now button */
+            background-color: black;
+            color: white;
+            padding: 12px 24px; /* Increase padding for the shop now button */
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        /* Set the height of img1 container to a specific height */
+        .trend-container img:first-child {
+            height: 400px; /* Adjust the height of img1 */
+            margin-right: 20px; /* Add right margin to img1 */
+        }
+
+        /* Set a specific height for img2, img3, and img4 */
+        .image-container .fixed-height-img {
+            height: 600px; /* Set your desired height for img2, img3, and img4 */
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+            }
+
+            .nav-links {
+                position: absolute;
+                right: 0px;
+                height: 90vh;
+                top: 5vh; /* Adjust the top position */
+                background-color: #232323;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 60%;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in;
+            }
+
+                .nav-links li {
+                    opacity: 0;
+                }
+
+            .burger {
+                display: block;
+            }
+
+            nav a {
+                color: rgb(231, 216, 216);
+            }
+
+                nav a:hover {
+                    color: #f7f7f7;
+                    text-decoration: none;
+                }
+        }
+
+        .nav-active {
+            transform: translateX(0%);
+        }
+
+        @keyframes navLinkFade {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+
+        .toggle .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .toggle .line2 {
+            opacity: 0;
+        }
+
+        .toggle .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+            .tooltip .tooltiptext {
+                visibility: hidden;
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+                color: #fff;
+                text-align: center;
+                padding: 5px 0;
+                border-radius: 6px;
+                position: absolute;
+                z-index: 1;
+                top: 90%; /* Adjust this to position the text */
+                left: 50%;
+                transform: translate(-50%, -50%);
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+
+            .tooltip:hover .tooltiptext {
+                visibility: visible;
+                opacity: 1;
+                transition: opacity 0.3s ease; /* Smooth tooltip fade-in transition */
+            }
+
+        /* Hover effect for nav links */
+        .nav-links a:hover {
+            color: #f84258; /* Change text color on hover */
+            transition: color 0.3s ease; /* Smooth color transition */
+        }
+
+        /* Hover effect for shop now button */
+        .shop-now-btn:hover {
+            background-color: #f84258; /* Change background color on hover */
+            transition: background-color 0.3s ease; /* Smooth background color transition */
+        }
+
+        /* Hover effect for navigation links */
+        .nav-links a {
+            transition: transform 0.3s ease;
+        }
+
+            .nav-links a:hover {
+                transform: scale(1.1); /* Scale up on hover */
+            }
+    </style>
+</head>
+<body>
+
+    {% load static %}
+
+    <div class="logo">
+        <img src="{% static 'app/images/logo-modified.png' %}" alt="">
+
+
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'advisor' %}">Advisor</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'signout' %}">SignOut</a></li>
+            {% else %}
+            <li><a href="{% url 'signup' %}">SignUp</a></li>
+            <li><a href="{% url 'signin' %}">SignIn</a></li>
+            {% endif %}
+
+        </ul>
+    </div>
+
+    <h1>Spring Clothes Essentials 2023</h1>
+
+    <div class="trend-container">
+        <img src="{% static 'app/images/spring 2023 women/img1.png' %}" alt="Crochet Trend">
+        <div class="trend-description">
+            <h2>Trend 1: Crochet</h2>
+            <p>No trend was more ubiquitous on the spring/summer 2023 runways than crochet, with flowy dresses with fringe and open-weave tops appearing on catwalks of brands like Gabriela Hearst, Ulla Johnson, and Proenza Schouler. To extend the shelf life of the warm-weather trend, opt for timeless silhouettes and layerable pieces like crochet tanks that can be worn over long-sleeve turtlenecks and button-down shirts come winter</p>
+        </div>
+    </div>
+
+    <div class="image-container">
+        <div class="trend-description">
+            <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img2.png' %}" alt="Crochet Flowers Top">
+            <a class="shop-now-btn" href="https://www.shopbop.com/cotton-crochet-bucket-hat-ganni/vp/v=1/1544743454.htm?extid=affprg_linkshare_SB-TnL5HPStwNw&cvosrc=affiliate.linkshare.TnL5HPStwNw&affuid=30283X879131Xb2be343a83260095b73e8a3f234826b7&sharedid=42352&subid1=TnL5HPStwNw-5xCOWidaSNDPckghDtZ7lQ">Shop Now</a>
+        </div>
+
+        <div class="trend-description">
+            <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img3.png' %}" alt="Cotton Crochet Bucket Hat">
+            <a class="shop-now-btn" href="https://www.bergdorfgoodman.com/p/prada-bicolor-woven-logo-shopper-tote-bag-prod166020023?ecid=BGAF_RK_Skimlinks+(Variable+Pricing)_Subnetwork&utm_medium=affiliate&utm_source=BGAF__Skimlinks+(Variable+Pricing)">Shop Now</a>
+        </div>
+
+        <div class="trend-description">
+            <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img4.png' %}" alt="Bicolor Woven Logo Shopper Tote Bag">
+            <a class="shop-now-btn" href="https://www.bergdorfgoodman.com/p/prada-bicolor-woven-logo-shopper-tote-bag-prod166020023?ecid=BGAF_RK_Skimlinks+(Variable+Pricing)_Subnetwork&utm_medium=affiliate&utm_source=BGAF__Skimlinks+(Variable+Pricing)">Shop Now</a>
+        </div>
+    </div>
+
+    <!-- Repeat the structure for other trends -->
+    <!-- Trend 2: Red -->
+    <div class="trend-container">
+        <img src="{% static 'app/images/spring 2023 women/img5.png' %}" alt="Red">
+        <div class="trend-description">
+            <h2>Trend 2: Red</h2>
+            <p>Glossy red hues took over the Fall 2023 runways ranging from Sandy Liang and PatBo to Tory Burch and Wiederhoeft. Think: Juicy reds with vibrant orange undertones that would look just as good in head-to-toe looks (see: a pantsuit) as accent accessory pieces (trendy shoes, handbags, jewelry, etc.)</p>
+        </div>
+        <div class="image-container">
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img6.png' %}" alt="Red Satin Cargo-Style Pants">
+                <a class="shop-now-btn" href="https://us.stinegoya.com/products/elanor-top-top-fiery-red">Shop Now</a>
+
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img7.png' %}" alt="The Pool Skirt - Red">
+                <a class="shop-now-btn" href="https://www.hillhousehome.com/products/the-pool-skirt-red?utm_source=pepperjam&utm_medium=affiliate&utm_campaign=21181&clickId=4566113504">Shop Now</a>
+
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img8.png' %}" alt="Fitted Sweetheart Neck Top - Red">
+                <a class="shop-now-btn" href="https://www.stories.com/en_usd/clothing/knitwear/sweaters/product.fitted-sweetheart-neck-top-red.1113634001.html?utm_source=Skimlinks%20(Variable%20Pricing)&utm_medium=affiliate&utm_campaign=1&utm_content=10&utm_term=1409312&ranMID=41994&ranEAID=tv2R4u9rImY&ranSiteID=tv2R4u9rImY-eLh.Uv66GBu9Pi1h5MIWIA">Shop Now</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Trend 3: Cargo Pants -->
+    <div class="trend-container">
+
+        <img src="{% static 'app/images/spring 2023 women/img9.png' %}" alt="Cargo Pants Trend">
+        <div class="trend-description">
+            <h2>Trend 3: Cargo Pants</h2>
+            <p>Utilitarian wear is in for 2023, which set the stage for the return of the cargo pant this year. But these aren't the shapeless, low-rise pants of the Y2K era. For warmer weather, this trend is translated into tailored silhouettes, interesting pocket placements, elevated fabrics like silk and organza, and colors that go beyond khaki and olive.</p>
+        </div>
+        <div class="image-container">
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img10.png' %}" alt="Tahiti Cargo Pants">
+
+                <a class="shop-now-btn" href="https://www.freepeople.com/shop/tahiti-cargo-pants2/?color=030&type=REGULAR&quantity=1&cm_mmc=rakuten-_-affiliates-_-Skimlinks%20%28Variable%20Pricing%29-_-1&utm_medium=affiliates&utm_source=rakuten&utm_campaign=Skimlinks%20%28Variable%20Pricing%29&utm_term=1426624&utm_content=1&utm_kxconfid=v3sdm8r4u&ranMID=43177&ranEAID=tv2R4u9rImY&ranSiteID=tv2R4u9rImY-gVmMsJZhciFEip4PKU15.w">Shop Now</a>
+
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img11.png' %}" alt="Relaxed Cargo Pant">
+
+                <a class="shop-now-btn" href="https://www.abercrombie.com/shop/us/p/relaxed-cargo-pants-51948964?irclickid=SuRzt%3AUuMxyPUo-Q-X05yzfnUkFXQBSkrREqQg0&irgwc=1&cmp=AFF%3A10078%3ASkimbit%20Ltd.%3AONLINE_TRACKING_LINK%3AOnline%20Tracking%20Link">Shop Now</a>
+
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img12.png' %}" alt="SLIM REFINED STRETCH CARGO PANT">
+
+                <a class="shop-now-btn" href="https://bananarepublic.gap.com/browse/product.do?pid=746693012&vid=1&searchText=cargo%20pants&irgwc=1&clickid=zIN3xNUSDxyPUvuxFoxwPUg4UkFXQGw0rREqQg0&ap=6&tid=braff3640647&siteID=brafcid383276#pdp-page-content">Shop Now</a>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Trend 4: Sheer Clothing -->
+    <div class="trend-container">
+
+        <img src="{% static 'app/images/spring 2023 women/img13.png' %}" alt="Sheer Clothing">
+        <div class="trend-description">
+            <h2>Trend 4: Sheer Clothing</h2>
+            <p>"Bare it all" has been the motto since the end of the lockdown. In 2023, naked dressing makes its way from the red carpet – where celebrities like Cher and Rihanna have been sporting the trend forever – to street style. From a cellophane-like dress, worn over a boldly hued maxi skirt at Tory Burch's spring 2023 show, to a frothy frock revealing undergarments at Victoria Beckham, the previously risqué trend is coming not only for your weekend wardrobe but even everyday workwear.</p>
+        </div>
+        <div class="image-container">
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img14.png' %}" alt="MARIPOSA LACE MIDI DRESS">
+                <a class="shop-now-btn" href="https://www.findmenowthelabel.com/collections/dress/products/mariposa-lace-dress?sscid=b1k7_r468h&">Shop Now</a>
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img15.png' %}" alt="OPEN-BACK PULLOVER">
+                <a class="shop-now-btn" href="https://www.toryburch.com/en-us/clothing/sweaters/open-back-pullover/149003.html?color=440&utm_source=RAN&utm_medium=affiliates&utm_content=3157217&utm_campaign=Skimlinks+%28Variable+Pricing%29&ranMID=43625&ranEAID=3157217&ranSiteID=tv2R4u9rImY-95sMjA2eE1afnfWo_7hoZg">Shop Now</a>
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img16.png' %}" alt="Obie semi-sheer maxi dress">
+                <a class="shop-now-btn" href="https://www.mytheresa.com/us/en/women/norma-kamali-obie-semi-sheer-maxi-dress-black-p00761944?chn=aff1&src=linkshare&cmp=aff_linksh_uk&tarea=gb&pub_id=3157217&pub_name=Skimlinks+(Variable+Pricing)&pub_type=3157217&ptyp=10&ranMID=35663&ranEAID=tv2R4u9rImY&ranSiteID=tv2R4u9rImY-SNtTSwUl4xG91W2f2bqQ0Q">Shop Now</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Trend 5: Denim Reimagined -->
+    <div class="trend-container">
+        <img src="{% static 'app/images/spring 2023 women/img17.png' %}.png" alt="Denim Reimagined">
+        <div class="trend-description">
+
+            <h2>Trend 5: Denim Reimagined</h2>
+            <p>From double-waisted jeans to carpenter jeans, it's been a while since we were this excited about denim trends. It seems like even the most luxe runway designers agree, sending out strapless dresses, shirting, and even undergarments and shoes (thigh-high-boot-jean hybrids anyone?) in the material. Whatever category you decide on, opt for timeless cuts and silhouettes that can stay in your closet rotation once the novelty wears off</p>
+        </div>
+        <div class="image-container">
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img18.png' %}" alt="Button denim dress">
+                <a class="shop-now-btn" href="https://shop.mango.com/us/women/dresses-and-jumpsuits-dresses/button-denim-dress_57002898.html?utm_source=100062354&utm_medium=affiliate&utm_campaign=CJ_USA&cjevent=bfbccc8c88aa11ee82f4afcb0a82b824&utm_term=30283X879131X604046ace6be4754ddbef86c71b0e258">Shop Now</a>
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img19.png' %}" alt="KALLEN INDIGO DENIM SHACKET">
+                <a class="shop-now-btn" href="https://dissh.com/products/kallen-indigo-denim-shacket">Shop Now</a>
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img20.png' %}" alt="FIT FOR SUCCESS JUMPSUIT">
+                <a class="shop-now-btn" href="https://www.goodamerican.com/products/fit-for-success-jumpsuit-blue274?utm_source=ebay-pepperjam&utm_medium=affiliate&utm_campaign=21181&publisherId=21181&clickId=4566145808">Shop Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trend 6: Shine For The Daytime -->
+    <div class="trend-container">
+        <img src="{% static 'app/images/spring 2023 women/img21.png' %}" alt="Shine For The Daytime">
+        <div class="trend-description">
+            <h2>Trend 6: Shine For The Daytime</h2>
+            <p>The amount of shine on the 2023 runways would make you think we are back in the Roaring '20s. While sequins may usually feel over as soon as the clock strikes midnight on January 31, this year, designers are making a case for "daytime shine" – wearable separates that can spice up even the most basic staples like tank tops (see above) and blue jeans. While this trend comes in all metallic shades (gold, bronze, rose gold etc.), we are partial to the liquid silver look that can double as a neutral.</p>
+        </div>
+        <div class="image-container">
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img22.png' %}" alt="High Rise Faux-Leather Cheeky Straight Jeanss">
+                <a class="shop-now-btn" href="https://www.gap.com/browse/product.do?pid=660043002&irgwc=1&ap=6&clickid=zIN3xNUSDxyPUvuxFoxwPUg4UkFXQH1srREqQg0&tid=goaff3640647&siteid=goafcid383244#pdp-page-content">Shop Now</a>
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img23.png' %}" alt="metallic oversized dad blazer in silver">
+                <a class="shop-now-btn" href="https://www.asos.com/us/i-saw-it-first/i-saw-it-first-metallic-oversized-dad-blazer-in-silver-part-of-a-set/prd/203669423?irgwc=1&clickid=_r1awv09ktgkfd3okeo3gd1cws22xbccfjop6ghf100&affid=25376&pubref=10078&utm_source=impact&utm_medium=affiliate&utm_campaign=Skimbit%20Ltd.&utm_term=Online%20Tracking%20Link&utm_content=ONLINE_TRACKING_LINK">Shop Now</a>
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img24.png' %}" alt="Sammy Top Handle 21 In Silver Metallic">
+                <a class="shop-now-btn" href="https://www.coach.com/products/sammy-top-handle-21-in-silver-metallic/CM538-LHSLV.html?RSSiteID=tv2R4u9rImY-1y5K3q0mRFOcuJFOWEzvSg&orsocode=RAN&ogmap=AFF|RTN|tv2R4u9rImY|STND|MULTI|SITEWIDE|||10|1476756|||US&utm_source=Skimlinks+%28Variable+Pricing%29&utm_medium=aff&utm_campaign=3157217&utm_content=1&ranMID=37299&ranEAID=tv2R4u9rImY&ranSiteID=tv2R4u9rImY-1y5K3q0mRFOcuJFOWEzvSg">Shop Now</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Trend 7: Maxi Skirts -->
+    <div class="trend-container">
+        <img src="{% static 'app/images/spring 2023 women/img25.png' %}" alt="red">
+
+        <div class="trend-description">
+            <h2>Trend 7: Maxi Skirts</h2>
+            <p>In response to the ultra unpractical mini skirts of 2022, maxi skirts have dominated 2023. In line with the aforementioned cargo and denim trends, expect lots of low-rise, pocket-adorned silhouettes and floor-grazing jean skirts, as well as styles in various prints and unexpected materials like velvet. Long live long hemlines!</p>
+        </div>
+        <div class="image-container">
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img26.png' %}" alt="Denim Maxi Skirt">
+                <a class="shop-now-btn" href="https://www.freepeople.com/shop/come-as-you-are-denim-maxi-skirt/?color=042&type=REGULAR&quantity=1&cm_mmc=rakuten-_-affiliates-_-Skimlinks%20%28Variable%20Pricing%29-_-1&utm_medium=affiliates&utm_source=rakuten&utm_campaign=Skimlinks%20%28Variable%20Pricing%29&utm_term=1426624&utm_content=1&utm_kxconfid=v3sdm8r4u&ranMID=43177&ranEAID=tv2R4u9rImY&ranSiteID=tv2R4u9rImY-Y58tq.lKsHpf3D_At7zRew">Shop Now</a>
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img27.png' %}" alt="Maggi Cargo Midi Skirt">
+                <a class="shop-now-btn" href="https://www.thereformation.com/products/maggi-cargo-midi-skirt/1311891ARM.html?utm_source=tv2R4u9rImY&utm_medium=10&utm_campaign=LinkShare&sid=LS298X102&ranMID=40090&ranEAID=3157217&ranSiteID=tv2R4u9rImY-GiDv29hy.xO.h.jbds9lLQ">Shop Now</a>
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img28.png' %}" alt="Ariana Flared Maxi Skirt">
+                <a class="shop-now-btn" href="https://www.revolve.com/grlfrnd-ariana-flared-maxi-skirt-in-east-side/dp/GRLR-WQ84/?cjdata=MXxOfDB8WXww&AID=11017645&PID=100062354&utm_medium=affiliate&utm_source=cj&source=cj&utm_campaign=glob_p_5370367&cjevent=72755d8288ac11ee8031e82d0a82b821">Shop Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trend 8: Cobalt Blue -->
+    <div class="trend-container">
+        <img src="{% static 'app/images/spring 2023 women/img29.png' %}" alt="Cobalt Blue">
+        <div class="trend-description">
+
+            <h2>Trend 8: Cobalt Blue</h2>
+            <p>The strongest color story to come out of Spring 2023 runways, cobalt blue has burst through the collections with the freshness of a sea mist on a morning day. Just bright enough to warrant a double take, yet subtle enough to be worked into daily wear, it's the type of deep blue that will excite even the most color-averse. Bonus points: It pairs well with Pantone's Viva Magenta.</p>
+        </div>
+        <div class="image-container">
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img30.png' %}" alt="SHOKO SWEATER MIDNIGHT GLACIER">
+                <a class="shop-now-btn" href="https://staud.clothing/collections/shoko-sweater/products/shoko-sweater-midnight-glacier?utm_channel=affiliate&utm_source=Skimlinks+%28Variable+Pricing%29&utm_medium=rakuten&utm_campaign=1&ranMID=44120&ranEAID=tv2R4u9rImY&ranSiteID=tv2R4u9rImY-_YjvHfbRx5fjrMQApSo51A">Shop Now</a>
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img31.png' %}" alt="SARONG SKIRT">
+                <a class="shop-now-btn" href="https://skims.com/products/signature-swim-sarong-skirt-turquoise">Shop Now</a>
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/spring 2023 women/img32.png' %}" alt="Seam Oversize Sweatshirt">
+                <a class="shop-now-btn" href="https://www.nordstrom.com/s/seam-oversize-sweatshirt/7594554?siteid=TnL5HPStwNw-WtWz_8Ruy.SYWeNJpWvQ9g&origin=category-personalizedsort&breadcrumb=Home/Women/New%20Arrivals&fashioncolor=Blue&color=420&utm_source=rakuten&utm_campaign=TnL5HPStwNw&utm_content=1&utm_term=1475388&utm_channel=low_nd_affiliates_content&sp_source=rakuten&sp_campaign=TnL5HPStwNw&utm_medium=affiliate_content">Shop Now</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("img").each(function () {
+                var altText = $(this).attr("alt");
+                $(this).wrap('<div class="tooltip"></div>');
+                $(this).after('<span class="tooltiptext">' + altText + '</span>');
+            });
+        });
+    </script>
+</body>
+</html>

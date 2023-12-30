@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Reviews</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+        }
+        header .left {
+            display: flex;
+            align-items: center;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        header .right {
+            display: flex;
+            align-items: center;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        header a {
+            text-decoration: none;
+            color: #fff;
+            margin: 0 10px;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #confirmation-message {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="left">
+            <img src="logo-modified.png" alt="Logo" width="100" height="100">
+        </div>
+        <div class="right">
+            <a href="index.html">Home</a>
+            <a href="#">Login</a>
+        </div>
+    </header>
+    <div class="container">
+        <h1>Customer Reviews</h1>
+        <form id="review-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="rating">Rating (1-5):</label>
+            <input type="number" id="rating" name="rating" min="1" max="5" step="1" maxlength="1" required>
+
+            <label for="description">Review:</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+
+            <button type="submit">Submit Review</button>
+        </form>
+        <div id="confirmation-message"></div>
+    </div>
+    <script>
+        const reviewForm = document.getElementById('review-form');
+        const confirmationMessage = document.getElementById('confirmation-message');
+
+        reviewForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            // Handle form submission (you can save the data or navigate to the next page).
+            // For now, let's just display a confirmation message.
+            confirmationMessage.style.display = 'block';
+            confirmationMessage.textContent = 'Your response has been recorded.';
+            reviewForm.style.display = 'none'; // Hide the form after submission.
+        });
+    </script>
+    <script>
+        const digitInput = document.getElementById('rating');
+
+        digitInput.addEventListener('input', function () {
+            if (this.value > 5) {
+                this.value = ""; // Set the value to 5 if it's greater
+            }
+        });
+    </script>
+</body>
+</html>

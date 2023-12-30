@@ -1,0 +1,321 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Reviews</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #fff;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            color: #fff;
+            padding: 10px 20px;
+        }
+
+            header a {
+                text-decoration: none;
+                color: #000000;
+                margin: 0 10px;
+            }
+
+            header h1 {
+                color: #000000;
+                text-align: center;
+            }
+
+        /*.container {
+          margin-top: 100px;
+        }*/
+
+        .container .row .col-lg-4 {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0
+        }
+
+        .card {
+            position: relative;
+            padding: 0;
+            margin: 0 !important;
+            border-radius: 20px;
+            overflow: hidden;
+            max-width: 280px;
+            max-height: 340px;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+            .card .card-image {
+                width: 100%;
+                max-height: 340px;
+            }
+
+                .card .card-image img {
+                    width: 100%;
+                    height: 340px;
+                    object-fit: cover;
+                }
+
+            .card .card-content {
+                position: absolute;
+                bottom: -180px;
+                color: #fff;
+                /*background: rgba(255, 255, 255, 0.2);*/
+                background: rgb(187 238 196 / 57%);
+                backdrop-filter: blur(15px);
+                min-height: 140px;
+                width: 100%;
+                transition: bottom 0.4s ease-in;
+                box-shadow: 0 -10px 10px rgba(255, 255, 255, 0.1);
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .card:hover .card-content {
+                bottom: 0px;
+            }
+
+                .card:hover .card-content h4,
+                .card:hover .card-content h5 {
+                    transform: translateY(10px);
+                    opacity: 1;
+                }
+
+            .card .card-content h4,
+            .card .card-content h5 {
+                font-size: 1.1rem;
+                text-transform: uppercase;
+                letter-spacing: 3px;
+                text-align: center;
+                transition: 0.8s;
+                font-weight: 500;
+                opacity: 0;
+                transform: translateY(-40px);
+                transition-delay: 0.2s;
+            }
+
+            .card .card-content h5 {
+                transition: 0.5s;
+                font-weight: 200;
+                font-size: 0.8rem;
+                letter-spacing: 2px;
+            }
+
+            .card .card-content .social-icons {
+                list-style: none;
+                padding: 0;
+            }
+
+                .card .card-content .social-icons li {
+                    margin: 10px;
+                    transition: 0.5s;
+                    transition-delay: calc(0.15s * var(--i));
+                    transform: translateY(50px);
+                }
+
+            .card:hover .card-content .social-icons li {
+                transform: translateY(20px);
+            }
+
+            .card .card-content .social-icons li a {
+                color: #fff;
+            }
+
+                .card .card-content .social-icons li a span {
+                    font-size: 1.3rem;
+                }
+
+        @media (min-width: 992px) {
+            .col-lg-4 {
+                flex: 0 0 auto;
+                width: 25%;
+            }
+        }
+
+        @media (max-width: 991.5px) {
+            .container {
+                margin-top: 20px;
+            }
+
+                .container .row .col-lg-4 {
+                    margin: 20px 0px;
+                }
+        }
+
+        #insta {
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            -webkit-background-clip: text;
+            /* Also define standard property for compatibility */
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.7rem; /* change this to change the size*/
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="right">
+            <a href="{% url 'home' %}">Home</a>
+            {% if user.is_authenticated %}
+
+            <li><a href="{% url 'signout' %}">SignOut</a></li>
+            {% else %}
+            <li><a href="{% url 'signup' %}">SignUp</a></li>
+            <li><a href="{% url 'signin' %}">SignIn</a></li>
+            {% endif %}
+        </div>
+        <h1>Social Media Influencers</h1>
+        <div>
+            <img src="{% static 'app/images/logo-modified.png' %}" alt="Logo" width="100" height="100">
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card p-0">
+                    <div class="card-image"> <img src="{% static 'app/images/influencer.png' %}" alt=""> </div>
+                    <div class="card-content d-flex flex-column align-items-center">
+                        <h4 class="pt-2">Mikaela Carrizo</h4>
+                        <h5>Creative Desinger</h5>
+                        <ul class="social-icons d-flex justify-content-center">
+                            <li style="--i:3"> <a href="https://www.instagram.com/mikaela.carrizo"><i class="fa fa-instagram" id="insta" aria-hidden="true"></i></a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card p-0">
+                    <div class="card-image"> <img src="{% static 'app/images/Influencer11.jpeg' %}" alt=""> </div>
+                    <div class="card-content d-flex flex-column align-items-center">
+                        <h4 class="pt-2">Megan</h4>
+                        <h5>Color Analyst</h5>
+                        <ul class="social-icons d-flex justify-content-center">
+                            <li style="--i:3"> <a href="https://www.instagram.com/shopcolorbook"> <i class="fa fa-instagram" id="insta" aria-hidden="true"></i> </a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card p-0">
+                    <div class="card-image"> <img src="{% static 'app/images/Influencer3.jpeg' %}" alt=""> </div>
+                    <div class="card-content d-flex flex-column align-items-center">
+                        <h4 class="pt-2">Jhanvi Bhatia</h4>
+                        <h5>Personal Stylist</h5>
+                        <ul class="social-icons d-flex justify-content-center">
+                            <li style="--i:3"> <a href="https://www.instagram.com/jhanviibhatiaa"> <i class="fa fa-instagram" id="insta" aria-hidden="true"></i> </a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card p-0">
+                    <div class="card-image"> <img src="{% static 'app/images/Influencer4.jpeg' %}" alt=""> </div>
+                    <div class="card-content d-flex flex-column align-items-center">
+                        <h4 class="pt-2">komal Marathe</h4>
+                        <h5>Image & Style Coach</h5>
+                        <ul class="social-icons d-flex justify-content-center">
+                            <li style="--i:3"> <a href="https://www.instagram.com/komalmarathee"> <i class="fa fa-instagram" id="insta" aria-hidden="true"></i> </a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card p-0">
+                    <div class="card-image"> <img src="{% static 'app/images/Influencer5.jpeg' %}" alt=""> </div>
+                    <div class="card-content d-flex flex-column align-items-center">
+                        <h4 class="pt-2">Lydia Tomlinson</h4>
+                        <h5>Personal Stylist</h5>
+                        <ul class="social-icons d-flex justify-content-center">
+                            <li style="--i:3"> <a href="https://www.instagram.com/lydiajanetomlinson"> <i class="fa fa-instagram" id="insta" aria-hidden="true"></i> </a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card p-0">
+                    <div class="card-image"> <img src="{% static 'app/images/Influencer6.jpeg' %}" alt=""> </div>
+                    <div class="card-content d-flex flex-column align-items-center">
+                        <h4 class="pt-2">Nathalia Vaz</h4>
+                        <h5>Image Consultant</h5>
+                        <ul class="social-icons d-flex justify-content-center">
+                            <li style="--i:3"> <a href="https://www.instagram.com/nathaliaevaz"> <i class="fa fa-instagram" id="insta" aria-hidden="true"></i> </a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card p-0">
+                    <div class="card-image"> <img src="{% static 'app/images/Influencer7.jpeg' %}" alt=""> </div>
+                    <div class="card-content d-flex flex-column align-items-center">
+                        <h4 class="pt-2">Lindsey</h4>
+                        <h5>Personal Stylist</h5>
+                        <ul class="social-icons d-flex justify-content-center">
+                            <li style="--i:3"> <a href="https://www.instagram.com/createdcolorful"> <i class="fa fa-instagram" id="insta" aria-hidden="true"></i> </a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card p-0">
+                    <div class="card-image"> <img src="{% static 'app/images/Influencer8.jpeg' %}" alt=""> </div>
+                    <div class="card-content d-flex flex-column align-items-center">
+                        <h4 class="pt-2">Tanistha Basu</h4>
+                        <h5>Style Coach</h5>
+                        <ul class="social-icons d-flex justify-content-center">
+                            <li style="--i:3"> <a href="https://www.instagram.com/tanisthabasu"> <i class="fa fa-instagram" id="insta" aria-hidden="true"></i> </a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card p-0">
+                    <div class="card-image"> <img src="{% static 'app/images/Influencer9.jpeg' %}" alt=""> </div>
+                    <div class="card-content d-flex flex-column align-items-center">
+                        <h4 class="pt-2">BethAnn Mullins</h4>
+                        <h5>Wardrobe Stylist</h5>
+                        <ul class="social-icons d-flex justify-content-center">
+                            <li style="--i:3"> <a href="https://www.instagram.com/bethannstyle"> <i class="fa fa-instagram" id="insta" aria-hidden="true"></i> </a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card p-0">
+                    <div class="card-image"> <img src="{% static 'app/images/Influencer10.jpeg' %}" alt=""> </div>
+                    <div class="card-content d-flex flex-column align-items-center">
+                        <h4 class="pt-2">Meghan O'Brien</h4>
+                        <h5>Color Consultant</h5>
+                        <ul class="social-icons d-flex justify-content-center">
+                            <li style="--i:3"> <a href="https://www.instagram.com/meghanleeobrien"> <i class="fa fa-instagram" id="insta" aria-hidden="true"></i> </a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2023 Social Media Influencers. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

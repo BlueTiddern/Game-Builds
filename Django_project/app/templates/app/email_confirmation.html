@@ -1,0 +1,11 @@
+{% autoescape off %}
+
+Welcome to Login
+
+Hello {{name}}! 
+
+Please confirm your email
+
+Confirmation Link : http://{{domain}}{% url 'activate' uidb64=uid token=token%}
+
+{% endautoescape %}

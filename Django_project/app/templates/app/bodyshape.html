@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bradley Bayou's Body Shape Calculator</title>
+    <div class="right">
+        <a href="{% url 'home' %}">Home</a>
+        {% if user.is_authenticated %}
+
+        <li><a href="{% url 'signout' %}">SignOut</a></li>
+        {% else %}
+        <li><a href="{% url 'signup' %}">SignUp</a></li>
+        <li><a href="{% url 'signin' %}">SignIn</a></li>
+        {% endif %}
+    </div>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff0f5; /* Light lavender pink background */
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease; /* Smooth transition for background color */
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+            color: #333; /* Darker text color for better contrast on light background */
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            background-color: #fff;
+            margin: 20px;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease; /* Smooth transition for shadow */
+        }
+
+            .container:hover {
+                box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+            }
+
+        .measurement-input {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 10px;
+            align-items: center;
+            padding: 10px;
+        }
+
+            .measurement-input label {
+                font-weight: bold;
+            }
+
+            .measurement-input input {
+                width: 80%;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                text-align: center;
+                transition: border-color 0.3s ease; /* Smooth transition for border color */
+            }
+
+                .measurement-input input:focus {
+                    border-color: #007bff;
+                    box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.2); /* Subtle glow effect */
+                    outline: none;
+                }
+
+        .instructions {
+            flex: 1;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            margin-right: 10px;
+            transition: background-color 0.3s ease; /* Smooth transition for background */
+        }
+
+            .instructions:hover {
+                background-color: #e0e0e0; /* Slightly darker background on hover */
+            }
+
+        #result {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .calculate-button {
+            background-color: #a62a6c;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition for color and transform */
+        }
+
+            .calculate-button:hover {
+                background-color: #7c1e51;
+                transform: translateY(-2px); /* Slight upward movement on hover */
+            }
+
+        .result-image {
+            max-width: 100%;
+            max-height: 100px; /* Keep the maximum height of the images */
+            display: none; /* Initially hide the images */
+            transition: opacity 0.3s ease; /* Fade transition */
+        }
+
+            .result-image:active {
+                opacity: 0.6; /* Fade effect when active/pressed */
+            }
+        .right {
+            text-align: right;
+            padding: 10px 20px;
+            background-color: #fff; /* or any color that fits your design */
+        }
+
+            .right a,
+            .right li {
+                display: inline-block;
+                margin-left: 10px;
+                font-weight: bold;
+                color: #a62a6c; /* Matching the calculate-button color */
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+                .right a:hover,
+                .right li:hover {
+                    color: #7c1e51; /* Darker shade for hover, matching the button hover */
+                }
+
+            /* If you're using <li> within a <ul>, you might want to reset list styles */
+            .right ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            /* If you want to style the links when the user is authenticated differently */
+            .right .authenticated-link {
+                color: #007bff; /* Different color to indicate active/authenticated state */
+            }
+
+        /* You may also want to add media queries to adjust the layout for smaller screens */
+        @media (max-width: 600px) {
+            .right {
+                text-align: center;
+            }
+
+                .right a,
+                .right li {
+                    display: block;
+                    margin-top: 5px;
+                }
+        }    
+    </style>
+
+</head>
+<body>
+    <h1>Bradley Bayou's Body Shape Calculator</h1>
+
+    <div class="container">
+        <form id="bodyShapeForm">
+            <div class="measurement-input">
+                <label for="shoulders">Shoulders (inches):</label>
+                <input type="number" id="shoulders" name="shoulders" required>
+            </div>
+
+            <div class="measurement-input">
+                <label for="bust">Bust (inches):</label>
+                <input type="number" id="bust" name="bust" required>
+            </div>
+
+            <div class="measurement-input">
+                <label for="waist">Waist (inches):</label>
+                <input type="number" id="waist" name="waist" required>
+            </div>
+
+            <div class="measurement-input">
+                <label for="hips">Hips (inches):</label>
+                <input type="number" id="hips" name="hips" required>
+            </div>
+
+            <div class="button-container">
+                <button class="calculate-button" type="submit">Calculate Body Shape</button>
+            </div>
+        </form>
+
+        <div class="instructions">
+            <h2>How to Take Measurements:</h2>
+            <p>Follow these steps to accurately measure your body:</p>
+            <p><strong>Shoulders:</strong> Have someone help you measure from the tip of one shoulder all the way around you. The measuring tape should be high up around your shoulders so it almost slips off.</p>
+            <p><strong>Bust:</strong> Pull the measuring tape taut across the fullest part of your bust and around your back. Don't pull the tape so taut that your breasts start to squish!</p>
+            <p><strong>Waist:</strong> Measure the smallest part of your natural waist, just above the belly button.</p>
+            <p><strong>Hips:</strong> Start at one hip (below the hip bone) and wrap the tape measure around the largest part of your butt.</p>
+        </div>
+    </div>
+
+    <div id="result">
+        <img id="invertedTriangleImage" class="result-image" src="inverted-triangle.jpg" alt="Inverted Triangle">
+        <img id="rectangleImage" class="result-image" src="rectangle.jpg" alt="Rectangle">
+        <img id="triangleImage" class="result-image" src="pear.jpg" alt="Triangle (Pear)">
+        <img id="hourglassImage" class="result-image" src="hourglass.jpg" alt="Hourglass">
+    </div>
+
+    <script>
+        document.getElementById("bodyShapeForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            // Get the user's measurements
+            const shoulders = parseFloat(document.getElementById("shoulders").value);
+            const bust = parseFloat(document.getElementById("bust").value);
+            const waist = parseFloat(document.getElementById("waist").value);
+            const hips = parseFloat(document.getElementById("hips").value);
+
+            // Perform the calculation based on Bradley Bayou's technique
+            let bodyShape = "Undefined";
+
+            const shoulderBustRatio = shoulders / bust;
+            const waistShoulderBustRatio = waist / shoulders;
+            const hipShoulderBustRatio = hips / bust;
+            const waistHipRatio = waist / hips;
+
+            if (shoulderBustRatio >= 1.05) {
+                bodyShape = "Inverted Triangle";
+                document.getElementById("invertedTriangleImage").style.display = "block";
+            } else if (waistShoulderBustRatio >= 0.75 && Math.abs(shoulderBustRatio - 1) <= 0.05) {
+                bodyShape = "Rectangle";
+                document.getElementById("rectangleImage").style.display = "block";
+            } else if (hipShoulderBustRatio >= 1.05) {
+                bodyShape = "Triangle (Pear)";
+                document.getElementById("triangleImage").style.display = "block";
+            } else if (waistShoulderBustRatio <= 0.75 && waistHipRatio <= 0.75 && Math.abs(hipShoulderBustRatio - 1) <= 0.05) {
+                bodyShape = "Hourglass";
+                document.getElementById("hourglassImage").style.display = "block";
+            }
+
+            // Hide the measurement inputs and instructions
+            document.getElementById("bodyShapeForm").style.display = "none";
+            document.getElementsByClassName("instructions")[0].style.display = "none";
+
+            // Display the result text
+            document.getElementById("result").innerHTML = `Your body shape is: ${bodyShape}`;
+        });
+    </script>
+</body>
+</html>

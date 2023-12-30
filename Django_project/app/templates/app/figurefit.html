@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Style Preferences</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        text-align: center;
+      }
+
+      .container {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        margin-top: 20px;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+      }
+
+      button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Style Preferences</h1>
+      <form action="process.php" method="POST">
+        <label for="bodyShape">Select your body shape:</label>
+        <select id="bodyShape" name="bodyShape">
+          <option value="hourglass">Hourglass</option>
+          <option value="apple">Apple</option>
+          <option value="pear">Pear</option>
+          <option value="rectangle">Rectangle</option>
+        </select>
+
+        <label for="skinTone">Select your skin tone:</label>
+        <select id="skinTone" name="skinTone">
+          <option value="fair">Fair</option>
+          <option value="medium">Medium</option>
+          <option value="dark">Dark</option>
+        </select>
+
+        <label for="colorPreference">Select your color preference:</label>
+        <select id="colorPreference" name="colorPreference">
+          <option value="red">Red</option>
+          <option value="blue">Blue</option>
+          <option value="green">Green</option>
+          <option value="yellow">Yellow</option>
+        </select>
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>

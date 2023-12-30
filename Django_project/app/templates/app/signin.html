@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f1f1;
+            text-align: center;
+        }
+
+        .alert {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            position: relative;
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+            text-align: center;
+        }
+
+        .close {
+            position: absolute;
+            top: 0;
+            right: 1.25rem;
+            font-size: 1.25rem;
+        }
+
+        h3 {
+            color: #a62a6c;
+        }
+
+        .form-group {
+            text-align: left;
+        }
+
+        label {
+            color: #a62a6c;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #a62a6c;
+            border-radius: 0.25rem;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #a62a6c;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            margin: 0.5rem 0;
+            border: none;
+            cursor: pointer;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+        }
+
+            button:hover {
+                background-color: #8b2046;
+            }
+    </style>
+</head>
+<body>
+
+    {% for message in messages %}
+    <div class="alert">
+        <strong>Message:</strong> {{ message }}
+    </div>
+    {% endfor %}
+
+    <h3>Log In to your account!</h3>
+    <form method="post" action="{% url 'signin' %}" class="mb-2">
+        {% csrf_token %}
+
+        {{ form.username.label_tag }} <!-- renders the label for the username field -->
+        {{ form.username }} <!-- renders the input field for username -->
+        {{ form.password.label_tag }} <!-- renders the label for the password field -->
+        {{ form.password }} <!-- renders the input field for password -->
+
+        <button type="submit" class="btn btn-primary">Log In</button>
+    </form>
+
+</body>
+
+</html>

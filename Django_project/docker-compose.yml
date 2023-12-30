@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: 'fa'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: 'Galciugun@1*'
+      MYSQL_ROOT_PASSWORD: 'Galciugun@1*'
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"  # Map port 80 on host to port 80 on the NGINX container
+
+volumes:
+  mysql_data:

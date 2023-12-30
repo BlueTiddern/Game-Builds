@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Chivo:300,700|Playfair+Display:700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Beth+Ellen&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nova+Cut|Nova+Script&display=swap" rel="stylesheet">
+    <title>Fashion Trends 2023</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 100px;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        .logo h3 {
+            font-family: 'Sacramento', cursive;
+            font-weight: 500;
+            text-align: center;
+            font-size: 45px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            width: 50%;
+            justify-content: space-around;
+            letter-spacing: 2px;
+            font-weight: 600;
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 10px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #f84258;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            min-height: 10vh;
+            background-color: #ffffff;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        #login {
+            color: #f84258;
+            margin-top: 10px;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 500px; /* Reduced the width */
+            margin: 0 auto; /* Centered the form */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #333; /* Changed the button color to black */
+            color: #fff; /* Changed the text color to white */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #555; /* Darker color on hover */
+        }
+
+        #output-section-women,
+        #output-section-men {
+            display: none;
+            margin-top: 20px;
+        }
+
+        h3 {
+            font-family: 'Chivo', sans-serif;
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <img src="trends/logo-modified.png" alt="">
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Advisor</a></li>
+            <li><a href="login.html" id="login">Login</a></li>
+        </ul>
+    </div>
+
+    <h2>Figure & Fit</h2>
+    <form onsubmit="submitForm(event)">
+        <label for="gender">Gender:</label>
+        <select name="gender" id="gender" onchange="updateBodyShapeOptions()">
+            <option value="M">Men</option>
+            <option value="W">Women</option>
+        </select><br>
+
+        <label for="skin_tone">Skin Tone:</label>
+        <select name="skin_tone" id="skin_tone">
+            <option value="Black">Black</option>
+            <option value="Deep Brown">Deep Brown</option>
+            <option value="Brown">Brown</option>
+            <option value="Olive">Olive</option>
+            <option value="Fair White">Fair White</option>
+            <option value="Pale White">Pale White</option>
+        </select><br>
+
+        <label for="body_shape">Body Shape:</label>
+        <select name="body_shape" id="body_shape">
+            <!-- Options for Men -->
+            <option value="Rectangle" data-gender="M">Rectangle</option>
+            <option value="Oval" data-gender="M">Oval</option>
+            <option value="Triangle" data-gender="M">Triangle</option>
+            <option value="Inverted Triangle" data-gender="M">Inverted Triangle</option>
+
+            <!-- Options for Women -->
+            <option value="Rectangle" data-gender="W">Rectangle</option>
+            <option value="Pear" data-gender="W">Pear</option>
+            <option value="Hour Glass" data-gender="W">Hour Glass</option>
+            <option value="Apple" data-gender="W">Apple</option>
+        </select><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Output Section for Women -->
+    <div id="output-section-women">
+        <h3>Selected Options for Women:</h3>
+        <p id="selected-options-women"></p>
+
+        <h3>Colors:</h3>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Color 1</th>
+                    <th>Color 2</th>
+                    <th>Color 3</th>
+                    <th>Color 4</th>
+                    <th>Color 5</th>
+                </tr>
+            </thead>
+            <tbody id="color-table-women"></tbody>
+        </table>
+
+        <h3>Outfits:</h3>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Top 1</th>
+                    <th>Top 2</th>
+                    <th>Top 3</th>
+                    <th>Dress</th>
+                    <th>Coat 1</th>
+                    <th>Coat 2</th>
+                    <th>Bottom 1</th>
+                    <th>Bottom 2</th>
+                </tr>
+            </thead>
+            <tbody id="outfit-table-women"></tbody>
+        </table>
+    </div>
+
+    <!-- Output Section for Men -->
+    <div id="output-section-men">
+        <h3>Selected Options for Men:</h3>
+        <p id="selected-options-men"></p>
+
+        <h3>Colors:</h3>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Color 1</th>
+                    <th>Color 2</th>
+                    <th>Color 3</th>
+                </tr>
+            </thead>
+            <tbody id="color-table-men"></tbody>
+        </table>
+
+        <h3>Outfits:</h3>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Outfit 1</th>
+                    <th>Outfit 2</th>
+                    <th>Outfit 3</th>
+                </tr>
+            </thead>
+            <tbody id="outfit-table-men"></tbody>
+        </table>
+    </div>
+    <script>
+        var skinToneColors = {
+            "Black": ["Emerald Green", "Sapphire Blue", "Brown", "Orange", "Pastel"],
+            "Deep Brown": ["Golden", "White", "Fuchsia", "Royal Blue", "Blush"],
+            "Brown": ["Golden", "White", "Plum", "Yellow", "Ruby"],
+            "Olive": ["Burgundy", "Green", "Orange", "Pink", "Navy"],
+            "Fair White": ["Purple", "Mustard", "Royal Blue", "Forest Green", "Cranberry"],
+            "Pale White": ["Lavender", "Deep Red", "Soft Yellow", "Navy", "Black"],
+        };
+
+        var bodyShapeOutfits = {
+            "Rectangle": ["halter style", "racerback", "round", "A line", "peacoats", "bomber jackets", "skirts", "cargo"],
+            "Pear": ["V Neck", "Cowl Necks", "Bell Sleeves", "A Line", "Boxy Coats", "Waist Length Jackets", "Flare Denims", "Boot Cuts"],
+            "Hour Glass": ["Wrap Tops", "Peplum", "Boat Neck", "Jump suits", "Blazers", "Bomber Jackets", "Skinny Jeans", "Leggings"],
+            "Apple": ["Breezy Aline", "Flowy Tops", "Strapless/Sleeveless", "Maxi Style", "Trench Coats", "Aline Straight Coats", "Skinny Jeans", "Leggings"],
+        };
+
+        var menSkinToneColors = {
+            "Black": ["White", "Pastels", "Pink"],
+            "Deep Brown": ["White", "Pastels", "Pink"],
+            "Brown": ["White", "Pastels", "Pink"],
+            "Olive": ["Olive Green", "Burnt Orange", "Rich Brown"],
+            "Fair White": ["Maroon", "Greens", "Black"],
+            "Pale White": ["Grey", "Navy", "Beige"],
+        };
+
+        var menBodyShapeOutfits = {
+            "Oval": ["Oversized Tops/Shirts", "Semi-Fitted Pants", "Single Breasted Blazer"],
+            "Rectangle": ["Nautical/Horizontal Striped", "Semi-Fitted/Straight Leg Pants", "Slim Fit/Knee Length Coats"],
+            "Triangle": ["Slim Fits", "Straight Cuts with Tapered Bottom Pants", "Single Button Blazer"],
+            "Inverted Triangle": ["V Neck Tops/Shirts", "Straight Cuts Pants", "Shoulder Fitted Coats"],
+        };
+
+        function updateBodyShapeOptions() {
+            var genderSelect = document.getElementById("gender");
+            var skinToneSelect = document.getElementById("skin_tone");
+            var bodyShapeSelect = document.getElementById("body_shape");
+
+            // Clear existing options
+            bodyShapeSelect.innerHTML = "";
+
+            // Men options
+            if (genderSelect.value === "M") {
+                bodyShapeSelect.add(new Option("Rectangle", "Rectangle"));
+                bodyShapeSelect.add(new Option("Oval", "Oval"));
+                bodyShapeSelect.add(new Option("Triangle", "Triangle"));
+                bodyShapeSelect.add(new Option("Inverted Triangle", "Inverted Triangle"));
+            }
+            // Women options
+            else if (genderSelect.value === "W") {
+                bodyShapeSelect.add(new Option("Rectangle", "Rectangle"));
+                bodyShapeSelect.add(new Option("Pear", "Pear"));
+                bodyShapeSelect.add(new Option("Hour Glass", "Hour Glass"));
+                bodyShapeSelect.add(new Option("Apple", "Apple"));
+            }
+
+            // Show output section
+            if (genderSelect.value === "W") {
+                document.getElementById("output-section-women").style.display = "block";
+                document.getElementById("output-section-men").style.display = "none";
+            } else if (genderSelect.value === "M") {
+                document.getElementById("output-section-men").style.display = "block";
+                document.getElementById("output-section-women").style.display = "none";
+            }
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+
+            var genderSelect = document.getElementById("gender");
+            var skinToneSelect = document.getElementById("skin_tone");
+            var bodyShapeSelect = document.getElementById("body_shape");
+
+            if (genderSelect.value === "W") {
+                displayOutputForWomen(skinToneSelect.value, bodyShapeSelect.value);
+            } else if (genderSelect.value === "M") {
+                displayOutputForMen(skinToneSelect.value, bodyShapeSelect.value);
+            }
+        }
+
+        function displayOutputForWomen(skinTone, bodyShape) {
+            var selectedOptions = "Gender: Women\nSkin Tone: " + skinTone + "\nBody Shape: " + bodyShape;
+            document.getElementById("selected-options-women").innerText = selectedOptions;
+
+            var colorTable = document.getElementById("color-table-women");
+            colorTable.innerHTML = "";
+            var selectedSkinToneColors = skinToneColors[skinTone];
+            addColorTableRow(colorTable, selectedSkinToneColors);
+
+            var outfitTable = document.getElementById("outfit-table-women");
+            outfitTable.innerHTML = "";
+            addOutfitTableRow(outfitTable, bodyShapeOutfits[bodyShape]);
+        }
+
+        function displayOutputForMen(skinTone, bodyShape) {
+            var selectedOptions = "Gender: Men\nSkin Tone: " + skinTone + "\nBody Shape: " + bodyShape;
+            document.getElementById("selected-options-men").innerText = selectedOptions;
+
+            var colorTable = document.getElementById("color-table-men");
+            colorTable.innerHTML = "";
+            var selectedMenSkinToneColors = menSkinToneColors[skinTone];
+            addColorTableRow(colorTable, selectedMenSkinToneColors);
+
+            var outfitTable = document.getElementById("outfit-table-men");
+            outfitTable.innerHTML = "";
+            addOutfitTableRow(outfitTable, menBodyShapeOutfits[bodyShape]);
+        }
+
+        function addColorTableRow(table, colors) {
+            var row = table.insertRow();
+            for (var i = 0; i < colors.length; i++) {
+                var cell = row.insertCell(i);
+                cell.innerText = colors[i];
+            }
+        }
+
+        function addOutfitTableRow(table, outfits) {
+            var row = table.insertRow();
+            for (var i = 0; i < outfits.length; i++) {
+                var cell = row.insertCell(i);
+                cell.innerText = outfits[i];
+            }
+        }
+    </script>
+</body>
+</html>

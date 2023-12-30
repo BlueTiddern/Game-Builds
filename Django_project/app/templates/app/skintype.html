@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load static %}
+
+    <title>Skin Type and Undertone Quizzes</title>
+
+    <div class="right">
+        <a href="{% url 'home' %}">Home</a>
+        {% if user.is_authenticated %}
+
+        <li><a href="{% url 'signout' %}">SignOut</a></li>
+        {% else %}
+        <li><a href="{% url 'signup' %}">SignUp</a></li>
+        <li><a href="{% url 'signin' %}">SignIn</a></li>
+        {% endif %}
+    </div>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FBAED2; /* Lightest lavender pink possible */
+            background-image: url('{% static "app/images/skintoneimg.jpg" %}'); /* Correct way to reference a static image in Django */
+            background-size: cover; /* Cover the entire viewport */
+            background-repeat: no-repeat; /* Prevent image repetition */
+            color: black; /* Text color for the entire page (black) */
+        }
+
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+            position: relative;
+            z-index: 1; /* Ensure the quiz container is on top of the background image */
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0; /* Increase margin between answer choices */
+            padding: 10px; /* Add padding for better readability */
+            background-color: transparent; /* Transparent background for answer choices */
+            border-radius: 5px;
+            color: black; /* Text color for answer choices (black) */
+            font-weight: bold; /* Make answer choices bold */
+        }
+        /* Set a style for all buttons */
+        button {
+            background-color: #a62a6c;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .results {
+            display: none;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9); /* Translucent white background for results */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+            text-align: center;
+        }
+
+
+        /* Update the question-container styles */
+        .question-container {
+            max-width: 600px; /* Reduce the maximum width */
+            margin: 20px auto; /* Center the container horizontally */
+            padding: 20px; /* Reduce padding for better spacing */
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            border: 1px solid black;
+            font-weight: bold;
+            text-align: center; /* Center text horizontally */
+        }
+
+        /* Update the answer-container styles */
+        .answer-container {
+            text-align: left; /* Align answer choices to the left */
+        }
+
+        /* Center the submit button in the combined-results-container */
+        #combined-results-container button {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between; /* Align elements to the left and right */
+            align-items: center; /* Vertically center elements */
+            padding: 10px;
+        }
+
+        .logo {
+            margin-left: 10px; /* Add left margin to the logo */
+        }
+
+        .header-button {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #a62a6c;
+            padding: 6px 6px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .right {
+            text-align: right;
+            padding: 10px 20px;
+            background-color: #fff; /* or any color that fits your design */
+        }
+
+            .right a,
+            .right li {
+                display: inline-block;
+                margin-left: 10px;
+                font-weight: bold;
+                color: #a62a6c; /* Matching the calculate-button color */
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+                .right a:hover,
+                .right li:hover {
+                    color: #7c1e51; /* Darker shade for hover, matching the button hover */
+                }
+
+            /* If you're using <li> within a <ul>, you might want to reset list styles */
+            .right ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            /* If you want to style the links when the user is authenticated differently */
+            .right .authenticated-link {
+                color: #007bff; /* Different color to indicate active/authenticated state */
+            }
+
+        /* You may also want to add media queries to adjust the layout for smaller screens */
+        @media (max-width: 600px) {
+            .right {
+                text-align: center;
+            }
+
+                .right a,
+                .right li {
+                    display: block;
+                    margin-top: 5px;
+                }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+             
+            <img src="{% static 'app/images/logo-modified.png' %}" alt="" style="width: 100px; height: 75px;">
+        </div>
+        <div>
+            
+
+            <!--<a href="login.html" class="header-button">Login</a> -->
+        </div>
+    </div>
+
+    <div id="skin-quiz">
+        <h1>Skin Type Quiz</h1>
+        <form id="skin-quiz-form">
+            <div class="question-container" id="question-1">
+                <p>Your eye color is:</p>
+                <div class="answer-container">
+                    <label>
+                        <input type="radio" name="eye_color" value="0"> Light blue, light gray, or light green
+                    </label>
+                    <label>
+                        <input type="radio" name="eye_color" value="1"> Blue, gray, or green
+                    </label>
+                    <label>
+                        <input type="radio" name="eye_color" value="2"> Hazel or light brown
+                    </label>
+                    <label>
+                        <input type="radio" name="eye_color" value="3"> Dark brown
+                    </label>
+                    <label>
+                        <input type="radio" name="eye_color" value="4"> Brownish black
+                    </label>
+                </div>
+                <button class="next-button" type="button" data-next="question-2">Next Question</button>
+            </div>
+
+            <div class="question-container" id="question-2" style="display: none;">
+                <p>Your natural hair color is:</p>
+                <div class="answer-container">
+                    <label>
+                        <input type="radio" name="hair_color" value="0"> Red or light blonde
+                    </label>
+                    <label>
+                        <input type="radio" name="hair_color" value="1"> Blonde
+                    </label>
+                    <label>
+                        <input type="radio" name="hair_color" value="2"> Dark blonde or light brown
+                    </label>
+                    <label>
+                        <input type="radio" name="hair_color" value="3"> Dark brown
+                    </label>
+                    <label>
+                        <input type="radio" name="hair_color" value="4"> Black
+                    </label>
+                </div>
+                <button class="next-button" type="button" data-next="question-3">Next Question</button>
+            </div>
+
+            <div class="question-container" id="question-3" style="display: none;">
+                <p>Your natural skin color (before sun exposure) is:</p>
+                <div class="answer-container">
+                    <label>
+                        <input type="radio" name="skin_color" value="0"> Ivory white
+                    </label>
+                    <label>
+                        <input type="radio" name="skin_color" value="1"> Fair or pale
+                    </label>
+                    <label>
+                        <input type="radio" name="skin_color" value="2"> Fair to beige, with golden undertone
+                    </label>
+                    <label>
+                        <input type="radio" name="skin_color" value="3"> Olive or light brown
+                    </label>
+                    <label>
+                        <input type="radio" name="skin_color" value="4"> Dark brown or black
+                    </label>
+                </div>
+                <button class="next-button" type="button" data-next="question-4">Next Question</button>
+            </div>
+
+            <!-- Question 4 Container -->
+            <div class="question-container" id="question-4" style="display: none;">
+                <p>How many freckles do you have on unexposed areas of your skin?</p>
+                <div class="answer-container">
+                    <label>
+                        <input type="radio" name="freckles" value="0"> Many
+                    </label>
+                    <label>
+                        <input type="radio" name="freckles" value="1"> Several
+                    </label>
+                    <label>
+                        <input type="radio" name="freckles" value="2"> A few
+                    </label>
+                    <label>
+                        <input type="radio" name="freckles" value="3"> Very few
+                    </label>
+                    <label>
+                        <input type="radio" name="freckles" value="4"> None
+                    </label>
+                </div>
+                <button class="next-button" type="button" data-next="question-5">Next Question</button>
+            </div>
+
+            <!-- Question 5 Container -->
+            <div class="question-container" id="question-5" style="display: none;">
+                <p>How does your skin respond to the sun?</p>
+                <div class="answer-container">
+                    <label>
+                        <input type="radio" name="sun_response" value="0"> Always burns, blisters, and peels
+                    </label>
+                    <label>
+                        <input type="radio" name="sun_response" value="1"> Often burns, blisters, and peels
+                    </label>
+                    <label>
+                        <input type="radio" name="sun_response" value="2"> Burns moderately
+                    </label>
+                    <label>
+                        <input type="radio" name="sun_response" value="3"> Burns rarely, if at all
+                    </label>
+                    <label>
+                        <input type="radio" name="sun_response" value="4"> Never burns
+                    </label>
+                </div>
+                <button class="next-button" type="button" data-next="question-6">Next Question</button>
+            </div>
+
+            <!-- Question 6 Container -->
+            <div class="question-container" id="question-6" style="display: none;">
+                <p>Does your skin tan?</p>
+                <div class="answer-container">
+                    <label>
+                        <input type="radio" name="skin_tan" value="0"> Never — I always burn
+                    </label>
+                    <label>
+                        <input type="radio" name="skin_tan" value="1"> Seldom
+                    </label>
+                    <label>
+                        <input type="radio" name="skin_tan" value="2"> Sometimes
+                    </label>
+                    <label>
+                        <input type="radio" name="skin_tan" value="3"> Often
+                    </label>
+                    <label>
+                        <input type="radio" name="skin_tan" value="4"> Always
+                    </label>
+                </div>
+                <button class="next-button" type="button" data-next="question-7">Next Question</button>
+            </div>
+
+            <!-- Question 7 Container -->
+            <div class="question-container" id="question-7" style="display: none;">
+                <p>How deeply do you tan?</p>
+                <div class="answer-container">
+                    <label>
+                        <input type="radio" name="tan_depth" value="0"> Not at all or very little
+                    </label>
+                    <label>
+                        <input type="radio" name="tan_depth" value="1"> Lightly
+                    </label>
+                    <label>
+                        <input type="radio" name="tan_depth" value="2"> Moderately
+                    </label>
+                    <label>
+                        <input type="radio" name="tan_depth" value="3"> Deeply
+                    </label>
+                    <label>
+                        <input type="radio" name="tan_depth" value="4"> My skin is naturally dark
+                    </label>
+                </div>
+                <button class="next-button" type="button" data-next="question-8">Next Question</button>
+            </div>
+
+            <!-- Question 8 Container -->
+            <div class="question-container" id="question-8" style="display: none;">
+                <p>How sensitive is your face to the sun?</p>
+                <div class="answer-container">
+                    <label>
+                        <input type="radio" name="face_sensitivity" value="0"> Very sensitive
+                    </label>
+                    <label>
+                        <input type="radio" name="face_sensitivity" value="1"> Sensitive
+                    </label>
+                    <label>
+                        <input type="radio" name="face_sensitivity" value="2"> Normal
+                    </label>
+                    <label>
+                        <input type="radio" name="face_sensitivity" value="3"> Resistant
+                    </label>
+                    <label>
+                        <input type="radio" name="face_sensitivity" value="4"> Very resistant/Never had a problem
+                    </label>
+                </div>
+                <!-- Add an ID to the first submit button for the undertone quiz -->
+                <button class="next-button" type="button" data-next="undertone-quiz" id="undertone-quiz-button">Take Undertone Quiz</button>
+            </div>
+    </div>
+
+
+
+
+    <!-- Undertone Quiz -->
+    <div id="undertone-quiz" style="display: none;">
+        <h1>Know Your Skin Tone</h1>
+        <div class="question-container undertone-question" id="q1-container">
+            <p>What color are your veins? Look at the inner part of your wrist or anywhere on your body where you can easily see your veins.</p>
+            <div class="answer-container">
+                <label>
+                    <input type="radio" name="q1" value="A"> You have blue or purple veins.
+                </label>
+                <label>
+                    <input type="radio" name="q1" value="B"> You have green-looking veins.
+                </label>
+                <label>
+                    <input type="radio" name="q1" value="C"> Your veins look the same as your skin color or are a mix of the two.
+                </label>
+            </div>
+            <button class="next-button" type="button" data-next="q2-container">Next Question</button>
+        </div>
+
+        <!-- Question 2 Container -->
+        <div class="question-container undertone-question" id="q2-container" style="display: none;">
+            <p>What hair colors do you look best in? Have you always been a fan of platinum blonde, or do you gravitate towards golden shades when it comes to picking a suitable hair color? Depending on your undertones, certain hair dyes may be more flattering on you.</p>
+            <!-- Answer Choices for Question 2 -->
+            <div class="answer-container">
+                <label>
+                    <input type="radio" name="q2" value="A"> You look best with ashy or platinum hair shades.
+                </label>
+                <label>
+                    <input type="radio" name="q2" value="B"> You look best with mahogany or golden tones.
+                </label>
+                <label>
+                    <input type="radio" name="q2" value="C"> Both kinds of hair colors are flattering on you.
+                </label>
+            </div>
+            <button class="next-button" type="button" data-next="q3-container">Next Question</button>
+        </div>
+
+        <!-- Question 3 Container -->
+        <div class="question-container undertone-question" id="q3-container" style="display: none;">
+            <p>Try the white shirt trick. A quick trick you can use to determine your undertone involves a white shirt and a window. Stand in front of the window or in some sort of natural lighting and hold the shirt up to your face. How does the appearance of your skin change?</p>
+            <!-- Answer Choices for Question 3 -->
+            <div class="answer-container">
+                <label>
+                    <input type="radio" name="q3" value="A"> Your skin appears more pinkish or rosy.
+                </label>
+                <label>
+                    <input type="radio" name="q3" value="B"> Your skin appears warmer with a golden or yellowish tint.
+                </label>
+                <label>
+                    <input type="radio" name="q3" value="C"> Your skin appears the same; no noticeable change in color.
+                </label>
+            </div>
+            <button class="next-button" type="button" data-next="q4-container">Next Question</button>
+        </div>
+
+        <!-- Question 4 Container -->
+        <div class="question-container undertone-question" id="q4-container" style="display: none;">
+            <p>What jewelry complements your skin tone? Depending on your undertone, certain metals or gemstones might look better on you.</p>
+            <!-- Answer Choices for Question 4 -->
+            <div class="answer-container">
+                <label>
+                    <input type="radio" name="q4" value="A"> You look best in silver or white gold jewelry.
+                </label>
+                <label>
+                    <input type="radio" name="q4" value="B"> You look best in gold or rose gold jewelry.
+                </label>
+                <label>
+                    <input type="radio" name="q4" value="C"> Both silver and gold jewelry complement your skin tone.
+                </label>
+            </div>
+            <button class="next-button" type="button" data-next="q5-container">Next Question</button>
+        </div>
+
+        <!-- Question 5 Container -->
+        <div class="question-container undertone-question" id="q5-container" style="display: none;">
+            <p>What colors do you feel most confident wearing? Everyone has a favorite color, but some shades might make you feel more radiant than others. Pay attention to the colors that garner you the most compliments and make you feel like a million bucks.</p>
+            <!-- Answer Choices for Question 5 -->
+            <div class="answer-container">
+                <label>
+                    <input type="radio" name="q5" value="A"> Cool-toned colors like blues, purples, and cool pinks.
+                </label>
+                <label>
+                    <input type="radio" name="q5" value="B"> Warm-toned colors like reds, oranges, and warm yellows.
+                </label>
+                <label>
+                    <input type="radio" name="q5" value="C"> Both cool and warm colors make you feel confident.
+                </label>
+            </div>
+            <button class="next-button" type="button" data-next="q6-container">Next Question</button>
+        </div>
+
+        <!-- Question 6 Container -->
+        <div class="question-container undertone-question" id="q6-container" style="display: none;">
+            <p>What are the undertones of the makeup products that look best on your skin? Consider the foundation, lipstick, and blush shades that enhance your complexion the most.</p>
+            <!-- Answer Choices for Question 6 -->
+            <div class="answer-container">
+                <label>
+                    <input type="radio" name="q6" value="A"> Cool-toned makeup products.
+                </label>
+                <label>
+                    <input type="radio" name="q6" value="B"> Warm-toned makeup products.
+                </label>
+                <label>
+                    <input type="radio" name="q6" value="C"> Both cool and warm tones suit you.
+                </label>
+            </div>
+
+            <!-- Add an ID to the submit button for the undertone quiz -->
+            <button class="next-button" type="button" data-next="combined-results-container" id="undertone-submit-button">Submit Undertone Quiz</button>
+        </div>
+
+    </div>
+    </form>
+    </div>
+    <div class="results" id="combined-results-container" style="display: none;">
+
+        <h2>Your Skin Type is: <span id="skintype"></span></h2>
+        <div>
+            <img id="skin-type-image" src="" alt="Skin Type Image">
+        </div>
+        <h2>Your Undertone is: <span id="undertonetype"></span></h2>
+    </div>
+    <script>
+        const skinQuizForm = document.getElementById('skin-quiz-form');
+        const undertoneQuiz = document.getElementById('undertone-quiz');
+        const undertoneQuestions = document.querySelectorAll('.undertone-question');
+        const skinResultsContainer = document.getElementById('combined-results-container');
+        const undertoneResultsContainer = document.getElementById('combined-results-container');
+
+        let currentSkinQuestion = 1;
+	const skinTypeImages = {
+    'Pale White': {
+        src: '/static/app/images/pale_white.jpeg',
+    },
+    'Fair White': {
+        src: '/static/app/images/fair_white.jpeg',
+    },
+    'Medium White to Olive': {
+        src: '/static/app/images/Olive.jpeg',
+    },
+    'Olive to Brown': {
+        src: '/static/app/images/Brown.jpeg',
+    },
+    'Dark Brown': {
+        src: '/static/app/images/Dark_Brown.jpeg',
+    },
+    'Deeply Pigmented Dark Brown to Black': {
+        src: '/static/app/images/Black.jpeg',
+    }
+
+};
+
+         // Event listener for the "Next Question" button in Skin Type Quiz
+        skinQuizForm.addEventListener('click', function (e) {
+            if (e.target.classList.contains('next-button')) {
+                e.preventDefault();
+                const nextQuestionId = e.target.getAttribute('data-next');
+                const currentQuestion = document.getElementById(`question-${currentSkinQuestion}`);
+                const nextQuestion = document.getElementById(nextQuestionId);
+
+                // Validate that an answer is selected
+                const selectedOption = currentQuestion.querySelector('input:checked');
+                if (!selectedOption) {
+                    alert('Please select an answer before proceeding.');
+                    return;
+                }
+
+                // Hide the current question and show the next question
+                currentQuestion.style.display = 'none';
+                nextQuestion.style.display = 'block';
+
+                currentSkinQuestion++;
+
+            }
+        });
+
+        // Function to calculate Fitzpatrick Skin Type based on quiz responses
+        function calculateSkinType() {
+           const eyeColor = parseInt(document.querySelector('input[name="eye_color"]:checked').value);
+            const hairColor = parseInt(document.querySelector('input[name="hair_color"]:checked').value);
+            const skinColor = parseInt(document.querySelector('input[name="skin_color"]:checked').value);
+            const freckles = parseInt(document.querySelector('input[name="freckles"]:checked').value);
+	    const sunResponse = parseInt(document.querySelector('input[name="sun_response"]:checked').value);
+            const skinTan = parseInt(document.querySelector('input[name="skin_tan"]:checked').value);
+            const tanDepth = parseInt(document.querySelector('input[name="tan_depth"]:checked').value);
+            const faceSensitivity = parseInt(document.querySelector('input[name="face_sensitivity"]:checked').value);
+	const skinTypeScore =eyeColor + hairColor + skinColor + freckles+sunResponse + skinTan + tanDepth + faceSensitivity
+
+            // Determine Fitzpatrick Skin Type based on score
+            let skinType = '';
+            if (skinTypeScore >= 0 && skinTypeScore <= 6) {
+                skinType = 'Pale White';
+            } else if (skinTypeScore >= 7 && skinTypeScore <= 12) {
+                skinType = 'Fair White';
+            } else if (skinTypeScore >= 13 && skinTypeScore <= 18) {
+                skinType = 'Medium White to Olive';
+            } else if (skinTypeScore >= 19 && skinTypeScore <= 24) {
+                skinType = 'Olive to Brown';
+            } else if (skinTypeScore >= 25 && skinTypeScore <= 30) {
+                skinType = 'Dark Brown';
+            } else {
+                skinType = 'Deeply Pigmented Dark Brown to Black';
+            }
+
+		return skinType;
+        }
+
+
+      // Function to update the skin type result with image and description
+function updateSkinTypeResult(skinTypeResult) {
+    const skinTypeImageElement = document.getElementById('skin-type-image');
+    const skinTypeDescriptionElement = document.getElementById('skin-type-description');
+
+    // Get the image source and description for the selected skin type
+    const skinTypeInfo = skinTypeImages[skinTypeResult];
+
+    // Update the image source and description elements
+    if (skinTypeInfo) {
+        skinTypeImageElement.src = skinTypeInfo.src;
+        skinTypeImageElement.alt = skinTypeResult;
+        skinTypeDescriptionElement.textContent = skinTypeInfo.description;
+    }
+}
+
+        // Event listener for the "Next Question" button in Undertone Quiz
+        undertoneQuiz.addEventListener('click', function (e) {
+            if (e.target.classList.contains('next-button')) {
+                e.preventDefault();
+                const nextQuestionId = e.target.getAttribute('data-next');
+                const currentQuestion = document.querySelector('.undertone-question:not([style="display: none;"])');
+                const nextQuestion = document.getElementById(nextQuestionId);
+
+                // Validate that an answer is selected
+                const selectedOption = currentQuestion.querySelector('input:checked');
+                if (!selectedOption) {
+                    alert('Please select an answer before proceeding.');
+                    return;
+                }
+
+                // Hide the current question and show the next question
+                currentQuestion.style.display = 'none';
+                nextQuestion.style.display = 'block';
+
+                // If the next question is the last one, show the results button
+                if (nextQuestionId === 'combined-results-container') {
+                    e.target.style.display = 'none';
+                    const undertoneResult = calculateUndertone();
+
+                    // Display the undertone result
+                    document.getElementById('undertonetype').textContent = undertoneResult;
+
+                    // Calculate the skin type result
+                    const skinTypeResult = calculateSkinType();
+
+                    // Display the skin type result
+                    document.getElementById('skintype').textContent = skinTypeResult;
+
+                    // Display the combined results container
+                    document.getElementById('combined-results-container').style.display = 'block';
+                }
+            }
+        });
+
+        function calculateUndertone() {
+    const q1Value = document.querySelector('input[name="q1"]:checked').value;
+    const q2Value = document.querySelector('input[name="q2"]:checked').value;
+    const q3Value = document.querySelector('input[name="q3"]:checked').value;
+    const q4Value = document.querySelector('input[name="q4"]:checked').value;
+    const q5Value = document.querySelector('input[name="q5"]:checked').value;
+    const q6Value = document.querySelector('input[name="q6"]:checked').value;
+
+    const undertoneTypes = {
+        'A': 'Cool Undertone',
+        'B': 'Warm Undertone',
+        'C': 'Neutral Undertone',
+    };
+
+    // Calculate the most frequent undertone
+    const undertoneVotes = [q1Value, q2Value, q3Value, q4Value, q5Value, q6Value];
+    const undertoneCounts = {
+        'A': 0,
+        'B': 0,
+        'C': 0,
+    };
+
+    for (const vote of undertoneVotes) {
+        undertoneCounts[vote]++;
+    }
+
+    let mostFrequentUndertone = 'A'; // Default to Cool Undertone
+    for (const undertonetype in undertoneCounts) {
+        if (undertoneCounts[undertonetype] > undertoneCounts[mostFrequentUndertone]) {
+            mostFrequentUndertone = undertonetype;
+        }
+    }
+
+    return undertoneTypes[mostFrequentUndertone]; // Return the undertone type
+}
+
+
+ 	function updateResults(skinTypeResult, undertoneResult) {
+            document.getElementById('skintype').textContent = skinTypeResult;
+            document.getElementById('undertonetype').textContent = undertoneResult;
+        }
+
+        // Event listener for the first submit button to switch to the undertone quiz
+        document.getElementById('undertone-quiz-button').addEventListener('click', function () {
+            // Hide the skin quiz and show the undertone quiz
+            document.getElementById('skin-quiz').style.display = 'none';
+            document.getElementById('undertone-quiz').style.display = 'block';
+        });
+
+        // Event listener for the undertone submit button to calculate and display results
+        document.getElementById('undertone-submit-button').addEventListener('click', function () {
+            // Calculate undertone and skin type results
+            const undertoneResult = calculateUndertone();
+            const skinTypeResult = calculateSkinType();
+
+            // Update the result elements with calculated values
+            updateResults(skinTypeResult, undertoneResult);
+	     updateSkinTypeResult(skinTypeResult);
+            // Display combined results container
+            document.getElementById('combined-results-container').style.display = 'block';
+        });
+
+    </script>
+</body>
+</html>

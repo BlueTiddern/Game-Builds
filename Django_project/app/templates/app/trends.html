@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Chivo:300,700|Playfair+Display:700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Beth+Ellen&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nova+Cut|Nova+Script&display=swap" rel="stylesheet">
+    <title>Fashion Trends 2023</title>
+<style>
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+}
+
+
+
+.logo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px; /* Adjust as needed */
+    margin-bottom: 20px; /* Add space below the logo */
+}
+
+.logo img {
+    width: 100px; /* Set the desired width for your logo */
+    height: auto; /* Maintain the aspect ratio */
+    margin-top: 10px;
+}
+
+.logo h3 {
+    font-family: 'Sacramento', cursive;
+    font-weight: 500;
+    text-align: center;
+    font-size: 45px;
+    margin-bottom: 5px; /* Reduce bottom margin for logo */
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    width: 50%;
+    justify-content: space-around;
+    letter-spacing: 2px;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 10px; /* Adjust as needed */
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: black;
+}
+
+.nav-links a:hover {
+    color: #f84258;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 10vh;
+    background-color: #ffffff;
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+#login {
+    color: #f84258;
+    margin-top: 10px; /* Adjust as needed */
+}
+
+
+@media screen and (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .nav-links {
+        position: absolute;
+        right: 0px;
+        height: 90vh;
+        top: 5vh; /* Adjust the top position */
+        background-color: #232323;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 60%;
+        transform: translateX(100%);
+        transition: transform 0.5s ease-in;
+    }
+
+    .nav-links li {
+        opacity: 0;
+    }
+
+    .burger {
+        display: block;
+    }
+
+    nav a {
+        color: rgb(231, 216, 216);
+    }
+
+    nav a:hover {
+        color: #f7f7f7;
+        text-decoration: none;
+    }
+}
+
+.nav-active {
+    transform: translateX(0%);
+}
+
+@keyframes navLinkFade {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+
+.toggle .line1 {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.toggle .line2 {
+    opacity: 0;
+}
+
+.toggle .line3 {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+.trends {
+    display: flex;
+    justify-content: space-around;
+}
+
+.trend {
+    text-align: center;
+    margin: 0 10px; /* Adjust the horizontal margin between images */
+}
+
+.trend img {
+    width: 100%; /* Reduce the width of the images */
+    height: 400px; /* Increase the height of the images */
+    
+}
+
+.trend-button {
+    text-decoration: none; /* Remove underline from links */
+    color: #FCB1C6; /* Make the link color the same as the text color */
+    background-color: #A52E6C; /* Add background color to the links */
+    padding: 10px 15px; /* Adjust padding to the links */
+    border-radius: 5px; /* Add border radius to the links */
+    display: block; /* Required for padding to take effect */
+    font-weight: bold;
+    margin-top: 1px; /* Adjust some space above the button */
+}
+
+</style>
+</head>
+<body>
+    {% load static %}
+   
+    <div class="logo">
+        <img src="{% static 'app/images/logo-modified.png' %}" alt="">
+
+
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'advisor' %}">Advisor</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'signout' %}">SignOut</a></li>
+            {% else %}
+            <li><a href="{% url 'signup' %}">SignUp</a></li>
+            <li><a href="{% url 'signin' %}">SignIn</a></li>
+            {% endif %}
+
+        </ul>
+    </div>
+
+
+    <div class="trends">
+        <div class="trend">
+            <a href="{% url 'menfalltrends2023' %}">
+                <img src="{% static 'app/images/trends/fall trends men.png' %}" alt="Fall Men 2023">
+            </a>
+            <a href="{% url 'menfalltrends2023' %}" class="trend-button">Fall Men 2023</a>
+        </div>
+        <!-- Repeat for other trends -->
+
+        <div class="trend">
+            <a href="{% url 'wintertrendswomen2023' %}">
+                <img src="{% static 'app/images/trends/fall trends women.png' %}" alt="Fall Women 2023">
+            </a>
+            <a href="{% url 'wintertrendswomen2023' %}" class="trend-button"> Fall Women 2023</a>
+        </div>
+
+        <div class="trend">
+            <a href="{% url 'spring2023trends' %}">
+                <img src="{% static 'app/images/trends/spring trends women.png' %}" alt="Spring Women 2023">
+            </a>
+            <a href="{% url 'spring2023trends' %}" class="trend-button">Spring Women 2023</a>
+        </div>
+    </div>
+
+
+</body>
+</html>

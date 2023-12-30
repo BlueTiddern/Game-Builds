@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Chivo:300,700|Playfair+Display:700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Beth+Ellen&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nova+Cut|Nova+Script&display=swap" rel="stylesheet">
+    <title>Men Fashion Trends 2023</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #fff0f5; /* Lightest lavender color */
+        }
+
+        h1, h2 {
+            text-align: center;
+            font-family: "Arial", sans-serif;
+            color: #333; /* Choose an appropriate text color */
+        }
+
+        h1 {
+            font-size: 36px; /* Adjust font size for h1 */
+            font-weight: bold;
+            line-height: 1.2; /* Adjust line height for h1 */
+            margin-bottom: 20px; /* Add some space below h1 */
+        }
+
+        h2 {
+            margin-top: 30px;
+            font-size: 24px; /* Increase font size for h2 */
+            line-height: 1.4; /* Adjust line height for h2 */
+        }
+
+        .logo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px; /* Adjust as needed */
+        }
+
+            .logo img {
+                width: 100px; /* Set the desired width for your logo */
+                height: auto; /* Maintain the aspect ratio */
+                margin-top: 10px;
+            }
+
+            .logo h3 {
+                font-family: 'Sacramento', cursive;
+                font-weight: 500;
+                text-align: center;
+                font-size: 45px;
+                margin-bottom: 5px; /* Reduce bottom margin for logo */
+            }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            width: 50%;
+            justify-content: space-around;
+            letter-spacing: 2px;
+            font-weight: 600;
+            font-size: 14px;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 10px; /* Adjust as needed */
+        }
+
+            .nav-links a {
+                text-decoration: none;
+                color: black;
+            }
+
+                .nav-links a:hover {
+                    color: #f84258;
+                }
+
+        nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            min-height: 10vh;
+            background-color: #ffffff;
+            position: fixed;
+            width: 100%;
+            top: 0;
+        }
+
+        #login {
+            color: #f84258;
+            margin-top: 10px; /* Adjust as needed */
+        }
+
+        .trend-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Center align the content */
+            align-items: center;
+            text-align: center; /* Reset text alignment to left */
+            padding: 30px; /* Add more padding to the container */
+            margin: 20px 50px; /* Add margin to the container */
+        }
+
+        .trend-description {
+            flex: 1;
+            padding: 20px;
+            font-size: 18px;
+            color: #333; /* Set the text color to a contrast color */
+            border-radius: 10px; /* Add rounded corners to the description box */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+            text-align: center; /* Center the text horizontally */
+            /* Add any other desired styles here */
+            opacity: 0.9; /* Set initial opacity to 0.9 */
+            transition: opacity 0.3s ease; /* Smooth fade-in transition */
+        }
+
+            .trend-description:hover {
+                opacity: 1; /* Increase opacity on hover */
+            }
+
+        .image-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 20px; /* Add more top margin to the image container */
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .fixed-height-img {
+            max-height: 100%;
+            object-fit: cover;
+            width: 100%;
+            height: 600px; /* Set your desired height for img2, img3, and img4 */
+        }
+
+        .shop-now-btn {
+            display: inline-block;
+            margin-top: 15px; /* Increase top margin for the shop now button */
+            background-color: black;
+            color: white;
+            padding: 12px 24px; /* Increase padding for the shop now button */
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        /* Set the height of img1 container to a specific height */
+        .trend-container img:first-child {
+            height: 400px; /* Adjust the height of img1 */
+            margin-right: 20px; /* Add right margin to img1 */
+        }
+
+        /* Set a specific height for img2, img3, and img4 */
+        .image-container .fixed-height-img {
+            height: 600px; /* Set your desired height for img2, img3, and img4 */
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                overflow-x: hidden;
+            }
+
+            .nav-links {
+                position: absolute;
+                right: 0px;
+                height: 90vh;
+                top: 5vh; /* Adjust the top position */
+                background-color: #232323;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 60%;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in;
+            }
+
+                .nav-links li {
+                    opacity: 0;
+                }
+
+            .burger {
+                display: block;
+            }
+
+            nav a {
+                color: rgb(231, 216, 216);
+            }
+
+                nav a:hover {
+                    color: #f7f7f7;
+                    text-decoration: none;
+                }
+        }
+
+        .nav-active {
+            transform: translateX(0%);
+        }
+
+        @keyframes navLinkFade {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+
+        .toggle .line1 {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .toggle .line2 {
+            opacity: 0;
+        }
+
+        .toggle .line3 {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+            .tooltip .tooltiptext {
+                visibility: hidden;
+                width: 100%;
+                background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+                color: #fff;
+                text-align: center;
+                padding: 5px 0;
+                border-radius: 6px;
+                position: absolute;
+                z-index: 1;
+                top: 90%; /* Adjust this to position the text */
+                left: 50%;
+                transform: translate(-50%, -50%);
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+
+            .tooltip:hover .tooltiptext {
+                visibility: visible;
+                opacity: 1;
+                transition: opacity 0.3s ease; /* Smooth tooltip fade-in transition */
+            }
+
+        /* Hover effect for nav links */
+        .nav-links a:hover {
+            color: #f84258; /* Change text color on hover */
+            transition: color 0.3s ease; /* Smooth color transition */
+        }
+
+        /* Hover effect for shop now button */
+        .shop-now-btn:hover {
+            background-color: #f84258; /* Change background color on hover */
+            transition: background-color 0.3s ease; /* Smooth background color transition */
+        }
+
+        /* Hover effect for navigation links */
+        .nav-links a {
+            transition: transform 0.3s ease;
+        }
+
+            .nav-links a:hover {
+                transform: scale(1.1); /* Scale up on hover */
+            }
+    </style>
+</head>
+<body>
+    {% load static %}
+
+    <div class="logo">
+        <img src="{% static 'app/images/logo-modified.png' %}" alt="">
+
+
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'advisor' %}">Advisor</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'signout' %}">SignOut</a></li>
+            {% else %}
+            <li><a href="{% url 'signup' %}">SignUp</a></li>
+            <li><a href="{% url 'signin' %}">SignIn</a></li>
+            {% endif %}
+
+        </ul>
+    </div>
+    <h1>Men Fashion Trends 2023</h1>
+
+    <div class="trend-container">
+        <img src="{% static 'app/images/fall 2023 men/img1.png' %}" alt="Apocalypse grungecore" title="Apocalypse grungecore">
+        <div class="trend-description">
+            <h2>Trend 1: Apocalypse grungecore</h2>
+            <p>There’s no denying that grunge was a big influence on menswear this season, with dirty-looking jeans and Mr Kurt Cobain-esque checks on display at EgonLab and Gucci, plus cobweb sweaters at Dries Van Noten. Givenchy perhaps did grunginess best, with Frankenstein-style layers of camo, sweats and denim; it was true “grab what you can and run” dressing. Maybe it’s a statement on how chaotic the world is, but all those separate parts felt cohesive.</p>
+        </div>
+    </div>
+
+    <div class="image-container">
+        <div class="trend-description">
+            <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img2.png' %}" alt="CChecked Cotton-Flannel Shirt">
+            <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/celine-homme/clothing/checked-shirts/checked-cotton-flannel-shirt/1647597295548143">Shop Now</a>
+        </div>
+
+        <div class="trend-description">
+            <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img3.png' %}" alt="Tie-Dyed Checked Cotton-Blend Flannel Shirt">
+            <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/celine-homme/clothing/checked-shirts/tie-dyed-checked-cotton-blend-flannel-shirt/1647597292550356">Shop Now</a>
+        </div>
+
+        <div class="trend-description">
+            <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img4.png' %}" alt="Checked Oasi Cashmere Overshirt">
+            <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/zegna-x-the-elder-statesman/clothing/checked-shirts/checked-oasi-cashmere-overshirt/1647597324240292">Shop Now</a>
+        </div>
+    </div>
+
+    <!-- Repeat the structure for other trends -->
+    <!-- Trend 2: Dramatically long coats -->
+    <div class="trend-container">
+        <img src="{% static 'app/images/fall 2023 men/img5.png' %}" alt="Dramatically long coats">
+        <div class="trend-description">
+            <h2>Trend 2: Dramatically long coats</h2>
+            <p>Big, bodacious and double-breasted, with poke-your-eye-out peak lapels to boot, the coats of this season were huge. SAINT LAURENT gave the most theatrical version, a striped wool number with padded shoulders that swooped along the floor with the gravitas of a dark magician’s cloak. More wearable iterations abounded at AMI PARIS, Auralee and Emporio Armani, but were no less impactful, sticking to a somber palette of beige, cream and charcoal grey that made them look showy but still sophisticated.</p>
+        </div>
+        <div class="image-container">
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img6.png' %}" alt="Belted Alpaca-Blend Felt Coat">
+                <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/mr-p/clothing/winter-coats/belted-alpaca-blend-felt-coat/1647597318595103">Shop Now</a>
+
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img7.png' %}" alt="Checked Wool Hooded Coat">
+                <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/burberry/clothing/winter-coats/checked-wool-hooded-coat/1647597331234069">Shop Now</a>
+
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img8.png' %}" alt="Virgin Wool-Blend Twill Coat">
+                <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/boglioli/clothing/winter-coats/virgin-wool-blend-twill-coat/1647597322905622">Shop Now</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Trend 3: The emperor’s new clothes -->
+    <div class="trend-container">
+
+        <img src="{% static 'app/images/fall 2023 men/img9.png' %}" alt="The emperor’s new clothes">
+        <div class="trend-description">
+            <h2>Trend 3: Cargo Pants</h2>
+            <p>Here’s an easy fashion trend to follow: take your clothes off. Nudity is trending in menswear right now, or, at least, a hint of it. As well as the shirtless suit taking over the red carpet, sternums were also on show on the runway. Rick Owens, Fendi and Dolce & Gabbana showed funereal suits with nothing underneath (save for the odd statement necklace), while Prada presented excellent, statement-collar cardigans that were worn unbuttoned and sans shirt. It was Mr Jonathan Anderson, however, who really ran with it. At LOEWE, he showed slouchy, torso-baring tailoring, and at his own label JW Anderson, he sent models down the runway holding bolts of fabric in nothing but their smalls.</p>
+        </div>
+        <div class="image-container">
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img10.png' %}" alt="Double-Breasted Garment-Dyed Stretch-Cotton Twill Suit Jacket">
+
+                <a class="shop-now-btn" href="https://www.freepeople.com/shop/tahiti-cargo-pants2/?color=030&type=REGULAR&quantity=1&cm_mmc=rakuten-_-affiliates-_-Skimlinks%20%28Variable%20Pricing%29-_-1&utm_medium=affiliates&utm_source=rakuten&utm_campaign=Skimlinks%20%28Variable%20Pricing%29&utm_term=1426624&utm_content=1&utm_kxconfid=v3sdm8r4u&ranMID=43177&ranEAID=tv2R4u9rImY&ranSiteID=tv2R4u9rImY-gVmMsJZhciFEip4PKU15.w">Shop Now</a>
+
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img11.png' %}" alt="Cotton and Silk-Blend Twill Suit Jacket">
+
+                <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/tom-ford/clothing/suit-jackets/o-connor-slim-fit-cotton-and-silk-blend-twill-suit-jacket/1647597305742639">Shop Now</a>
+
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img12.png' %}" alt="Cotton-Blend Twill Suit Jacket">
+
+                <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/canali/clothing/suit-jackets/cotton-blend-twill-suit-jacket/1647597309366226">Shop Now</a>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Trend 4: Ametora redux -->
+    <div class="trend-container">
+
+        <img src="{% static 'app/images/fall 2023 men/img13.png' %}" alt="Ametora redux">
+        <div class="trend-description">
+            <h2>Trend 4: Ametora redux</h2>
+            <p>American luxury is evolving. “Ametora” – the Japanese portmanteau for “American traditional style” took over the runway this season, suitably from American and Japanese brands such as Auralee, AMIRI, KENZO and Kolor, who all showed elements of Ivy League-style prep updated for now. BODE, the current darling American brand, showed a collection of crunchy corduroy suits, folkish embroidery and a pastoral sweater that featured an image of a cow, which is sure to be a hit among the brand’s steadily growing fanbase</p>
+        </div>
+        <div class="image-container">
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img14.png' %}" alt="Jacquard-Knit Brushed Mohair-Blend Cardigan">
+                <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/needles/clothing/cardigans/jacquard-knit-brushed-mohair-blend-cardigan/1647597314775489">Shop Now</a>
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img15.png' %}" alt="Katsugari Straight-Leg Cotton-Twill Drawstring Trousers">
+                <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/kapital/clothing/casual-trousers/katsugari-straight-leg-cotton-twill-drawstring-trousers/1647597325373024">Shop Now</a>
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img16.png' %}" alt="Takibi Ripstop Jacket">
+                <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/snow-peak/sport/outdoor-jackets/takibi-ripstop-jacket/1647597324179919">Shop Now</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Trend 5: Freshly shaven bikers -->
+    <div class="trend-container">
+        <img src="{% static 'app/images/fall 2023 men/img17.png' %}" alt="Freshly shaven bikers">
+        <div class="trend-description">
+
+            <h2>Trend 5: Freshly shaven bikers</h2>
+            <p>Vroom vroom – the biker is big in menswear right now. Not the hirsute, scotch-swilling kind, but a sleeker, smoother version; a raconteur who frequents airport lounges more than he does dive bars and owns a spanking-new Harley-Davidson, but seldom rides it. In other words, sleek, expensive-looking leather jackets are trending, courtesy of louche, billowing trousers at Lemaire, AMI PARIS and AMIRI, while 1017 ALYX 9SM committed to the full look with studded-knee leather pants</p>
+        </div>
+        <div class="image-container">
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img18.png' %}" alt="Suede Jacket">
+                <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/mr-p/clothing/leather-jackets/suede-jacket/1647597311176414">Shop Now</a>
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img19.png' %}" alt="Leather Biker Jacket">
+                <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/brunello-cucinelli/clothing/leather-jackets/leather-biker-jacket/1647597292960022">Shop Now</a>
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img20.png' %}" alt="Teddy Logo-Appliquéd Leather Bomber Jacket">
+                <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/celine-homme/clothing/leather-jackets/teddy-logo-appliqued-leather-bomber-jacket/1647597315471459">Shop Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trend 6: Sci-fi tailoring -->
+    <div class="trend-container">
+        <img src="{% static 'app/images/fall 2023 men/img21.png' %}" alt="Sci-fi tailoring">
+        <div class="trend-description">
+            <h2>Trend 6: Sci-fi tailoring</h2>
+            <p>Star Trekking across the runway this season was a host of tailoring that would look right at home in a Gattaca reboot. Featuring nearly double-breasted blazers sans lapels at Louis Vuitton – and with the collar wrapped and pinned across the neck USS Enterprise-style at Dior – the suiting felt confidently futuristic, in a palette of Dune beige and gunmetal grey. The restrained colours and relaxed-yet-sharp silhouettes at Prada were also suitably sci-fi, while Anderson’s pattern-cutting genius at LOEWE yielded a curved, structured jacket with upturned lapels.</p>
+        </div>
+        <div class="image-container">
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img22.png' %}" alt="Tiger Juddbhan Corduroy-Trimmed Denim Shirt">
+                <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/kapital/clothing/plain-shirts/tiger-juddbhan-corduroy-trimmed-denim-shirt/1647597325373176">Shop Now</a>
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img23.png' %}" alt="Shawl-Collar Ribbed Wool and Cashmere-Blend Cardigan">
+                <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/anderson-sheppard/clothing/cardigans/shawl-collar-ribbed-wool-and-cashmere-blend-cardigan/1647597322899169">Shop Now</a>
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img24.png' %}" alt="Slim-Leg Pleated Stretch-Cotton Twill Trousers">
+                <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/boglioli/clothing/formal-trousers/slim-leg-pleated-stretch-cotton-twill-trousers/1647597322905612">Shop Now</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Trend 7: Statement scarves -->
+    <div class="trend-container">
+        <img src="{% static 'app/images/fall 2023 men/img25.png' %}" alt="Statement scarves">
+
+        <div class="trend-description">
+            <h2>Trend 7: Statement scarves</h2>
+            <p>Size matters for AW23 – at least when it comes to your scarf. Ankle-brushing neckwear was all the rage at Fendi and Maison Mihara Yasuhiro, while Giorgio Armani proffered a cosy luxe blanket cape and French designer Ludovic de Saint Sernin showed a black scarf slung across the model’s neck like a feather boa. Across the board the scarves were big – the centre of the outfit rather than a mere accessory. We’re not sure whether giant-scarf legend Mr Lenny Kravitz was on any of these designers’ mood boards this season, but that famous, memed to death look from 2012 was clearly ahead of its time.</p>
+        </div>
+        <div class="image-container">
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img26.png' %}" alt="Reversible Fringed Logo-Print Houndstooth Wool Scarf">
+                <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/gucci/accessories/wool-scarves/reversible-fringed-logo-print-houndstooth-wool-scarf/1647597330875246">Shop Now</a>
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img27.png' %}" alt="Logo-Jacquard Striped Wool Scarf">
+                <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/missoni/accessories/wool-scarves/logo-jacquard-striped-wool-scarf/1647597328526342">Shop Now</a>
+            </div>
+            <div class="trend-description">
+                <img class="fixed-height-img" src="{% static 'app/images/fall 2023 men/img28.png' %}" alt="Fringed Logo-Embroidered Two-Tone Wool and Cashmere-Blend Scarf">
+                <a class="shop-now-btn" href="https://www.mrporter.com/en-us/mens/product/loewe/accessories/wool-scarves/fringed-logo-embroidered-two-tone-wool-and-cashmere-blend-scarf/1647597327565151">Shop Now</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("img").each(function () {
+                var altText = $(this).attr("alt");
+                $(this).wrap('<div class="tooltip"></div>');
+                $(this).after('<span class="tooltiptext">' + altText + '</span>');
+            });
+        });
+    </script>
+</body>
+</html>

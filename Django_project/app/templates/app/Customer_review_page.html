@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Reviews</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+        }
+
+            header .left {
+                display: flex;
+                align-items: center;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            header .right {
+                display: flex;
+                align-items: center;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
+            header a {
+                text-decoration: none;
+                color: #fff;
+                margin: 0 10px;
+            }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #confirmation-message {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+{% load static %} <!-- Make sure this is inside the head or body, not floating at the top -->
+
+<body>
+    <header>
+        <div class="left">
+            <img src="{% static 'app/images/logo-modified.png' %}" alt="Logo" width="100" height="100">
+        </div>
+        <div class="right">
+            <a href="{% url 'home' %}">Home</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'signout' %}">SignOut</a>
+            {% else %}
+            <a href="{% url 'signup' %}">SignUp</a>
+            <a href="{% url 'signin' %}">SignIn</a>
+            {% endif %}
+        </div>
+    </header>
+    <div class="container">
+        <h1>Customer Reviews</h1>
+        <form method="post" id="review-form">
+            <!-- Added the id="review-form" -->
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit Review">
+        </form>
+        <div id="confirmation-message"></div>
+    </div>
+    <!-- Place your scripts here -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const reviewForm = document.getElementById('review-form');
+            const confirmationMessage = document.getElementById('confirmation-message');
+
+            reviewForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                // Handle form submission logic here...
+                confirmationMessage.style.display = 'block';
+                confirmationMessage.textContent = 'Your response has been recorded.';
+                reviewForm.style.display = 'none';
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // If your form has an input with id="rating" for rating, use this script.
+            // Otherwise, you may need to adjust or remove this script.
+            const digitInput = document.getElementById('rating');
+            if (digitInput) {
+                digitInput.addEventListener('input', function () {
+                    if (this.value > 5) {
+                        this.value = ""; // Resets the value if it's greater than 5
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+
+    <!-- Loading the static template tag -->
+    {% load static %}
+
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Chivo:300,700|Playfair+Display:700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Beth+Ellen&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nova+Cut|Nova+Script&display=swap" rel="stylesheet">
+
+    <!-- Adjusted CSS paths -->
+    <link rel="stylesheet" href="{% static 'app/content/style_index.css' %}">
+    <link rel="stylesheet" href="{% static 'app/content/demo.css' %}">
+    <link rel="stylesheet" href="{% static 'app/content/nav.css' %}">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <img src="{% static 'app/images/logo-modified.png' %}" alt="">
+        </div>
+        <ul class="nav-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'advisor' %}">Advisor</a></li>
+            <li><a href="{% url 'figure_fit' %}">fit Recommender</a></li>
+            <li><a href="{% url 'customer_review' %}">Customer Review Page</a></li>
+
+            {% if user.is_authenticated %}
+            <li><h3>Hello {{ user.first_name }}!</h3></li>
+            <li><a href="{% url 'signout' %}">SignOut</a></li>
+            {% else %}
+            <li><a href="{% url 'signup' %}">SignUp</a></li>
+            <li><a href="{% url 'signin' %}">SignIn</a></li>
+            {% endif %}
+        </ul>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <div class="index-main-img">
+        <a href=""><img id="main-index-img" src="" alt="" srcset=""></a>
+    </div>
+
+    <div class="container">
+        <h1>About Us</h1>
+        <p>Fashion Advisors is a service that helps individuals enhance their personal style and confidence through clothing choices. Our team stays updated with the latest fashion trends and offers personalized guidance, considering factors like body type, skin tone, and personal preferences. We assist clients in selecting appropriate attire for various occasions, accompany them on shopping trips, and provide online shopping recommendations. Our goal is to empower individuals to express their unique selves and feel confident in their clothing choices, especially during significant life changes or transitions.</p>
+    </div>
+
+    <br>
+
+    <div class="index-offers-img">
+        <a href="products.html"><img src="{% static 'app/images/colortype.jpeg' %}" alt="" ></a>
+        <a href="products.html"><img src="{% static 'app/images/figurefit.jpeg' %}" alt="" ></a>
+        
+        <a href="products.html"><img src="{% static 'app/images/bodyshape.jpeg' %}" alt=""></a>
+        <a href="products.html"><img src="{% static 'app/images/skintone.jpeg' %}" alt=""></a>
+    </div>
+
+    <br><br>
+    <div class="index-grid-img-1">
+        <a href="{% url 'trends' %}"><h4 class="info-of-img-below">color type</h4></a>
+        <a href="{% url 'figurefit' %}"><h4 class="info-of-img-below">Figure & Fit</h4></a>
+        <a href="{% url 'bodyshape' %}"><h4 class="info-of-img-below">Body Shape</h4></a>
+        <a href="{% url 'skintype' %}"><h4 class="info-of-img-below">SKin Tone</h4></a>
+    </div>
+
+    <br><br><br>
+    <br><br>
+
+    <script type="text/javascript" src="{% static 'app/content/nav.js' %}"></script>
+</body>
+</html>
